@@ -1,9 +1,9 @@
 /**
  * Sezione "chi sono" a 360°.
  *
- * NESSUN testo e' stato inventato: riempi solo questo oggetto e i placeholder
- * spariscono da soli. Ogni campo vuoto (null / array vuoto) renderizza un box
- * tratteggiato con l'indicazione di cosa va scritto.
+ * Stack e facts sono PRE-COMPILATI con dati verificabili presi dai repo pubblici
+ * (niente inventato): vedi le note di provenienza accanto a ogni blocco.
+ * intro e focus restano tuoi: finche' sono vuoti mostrano un box tratteggiato.
  */
 type Fact = { label: string; value: string };
 
@@ -13,17 +13,43 @@ const about: {
   stack: string[];
   facts: Fact[];
 } = {
-  // 2-3 righe: chi sei e cosa fai oggi.
+  // TUA: 2-3 righe su chi sei e cosa fai oggi.
   intro: null,
 
-  // Cosa stai costruendo adesso (2-4 punti, una riga l'uno).
+  // TUA: cosa stai costruendo adesso, 2-4 punti (e' copy, non dato di repo).
   focus: [],
 
-  // Tecnologie con cui lavori davvero (chip).
-  stack: [],
+  /**
+   * Fonti:
+   * - linguaggi: campo `language` delle 18 repo pubbliche (TypeScript 14,
+   *   JavaScript 2, Dart 1, HTML 1);
+   * - framework e servizi: dependencies di AgentCloud/package.json.
+   */
+  stack: [
+    "TypeScript",
+    "JavaScript",
+    "Dart",
+    "Next.js",
+    "React",
+    "Tailwind CSS",
+    "Supabase",
+    "Stripe",
+    "Resend",
+    "Anthropic API",
+    "Framer Motion",
+    "Vitest",
+    "Vercel",
+  ],
 
-  // Righe label/valore: base, ruolo, esperienza, disponibilita', lingue...
-  facts: [],
+  /**
+   * Fonti: GitHub API (`public_repos`, `created_at`) e date di push delle repo.
+   * Da completare a mano: base, ruolo, anni di esperienza, disponibilita'.
+   */
+  facts: [
+    { label: "Progetti", value: "18 repository pubbliche" },
+    { label: "Su GitHub dal", value: "settembre 2025" },
+    { label: "Ultima attivit\u00e0", value: "settembre 2026" },
+  ],
 };
 
 export function About() {
@@ -32,7 +58,7 @@ export function About() {
       id="about"
       className="border-t border-vertex-border bg-vertex-bg"
     >
-      <div className="mx-auto w-full max-w-5xl scroll-mt-8 px-6 py-16 sm:py-20">
+      <div className="mx-auto w-full max-w-5xl scroll-mt-8 px-6 py-16 sm:py-20 xl:max-w-6xl 2xl:max-w-7xl">
         <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
           Chi sono
         </p>
@@ -103,7 +129,7 @@ export function About() {
                 <dl className="space-y-3">
                   {about.facts.map((fact) => (
                     <div key={fact.label} className="flex gap-4 text-sm">
-                      <dt className="w-24 shrink-0 text-vertex-steel">
+                      <dt className="w-24 shrink-0 text-vertex-silverMuted">
                         {fact.label}
                       </dt>
                       <dd className="text-vertex-silver">{fact.value}</dd>

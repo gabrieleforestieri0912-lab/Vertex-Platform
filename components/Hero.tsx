@@ -13,13 +13,13 @@ export function Hero() {
         className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"
       />
 
-      <div className="relative mx-auto grid w-full max-w-5xl items-center gap-12 px-6 py-20 sm:py-28 lg:grid-cols-[1.4fr_1fr]">
+      <div className="relative mx-auto grid w-full max-w-5xl items-center gap-12 px-6 py-20 sm:py-28 lg:grid-cols-[1.4fr_1fr] xl:max-w-6xl xl:gap-16 2xl:max-w-7xl">
         <div>
           <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
             Progetti indipendenti
           </p>
 
-          <h1 className="mt-5 text-5xl font-semibold tracking-tight text-vertex-highlight sm:text-6xl">
+          <h1 className="mt-5 text-5xl font-semibold tracking-tight text-vertex-highlight sm:text-6xl lg:text-7xl">
             Vertex
           </h1>
 
@@ -27,7 +27,7 @@ export function Hero() {
             TODO(copy): claim provvisorio, da rivedere.
             L'elenco dei progetti arriva da data/projects.ts.
           */}
-          <p className="mt-6 max-w-xl text-balance text-lg leading-relaxed text-vertex-silver">
+          <p className="mt-6 max-w-xl text-balance text-lg leading-relaxed text-vertex-silver xl:max-w-2xl">
             Un unico posto per i progetti che sto costruendo: cosa &egrave; live,
             cosa &egrave; in beta e cosa &egrave; ancora in cantiere.
           </p>
@@ -67,7 +67,7 @@ export function Hero() {
               su #0A0A0A la parte visibile resta ~11% (misurato: sale al 17%).
               Niente contrast-*: il pivot sul grigio 50% schiaccia i toni scuri.
             */
-            className="relative mx-auto w-full max-w-[16rem] mix-blend-screen brightness-150 lg:max-w-[19rem]"
+            className="relative mx-auto w-full max-w-[16rem] mix-blend-screen brightness-150 lg:max-w-[19rem] xl:max-w-[21rem]"
           />
         </div>
       </div>
