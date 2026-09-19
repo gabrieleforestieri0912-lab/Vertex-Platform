@@ -1,5 +1,10 @@
 export type ProjectStatus = "live" | "beta" | "building" | "paused";
-export type ProjectCategory = "SaaS" | "Mobile" | "Education";
+export type ProjectCategory =
+  | "SaaS"
+  | "Mobile"
+  | "Desktop"
+  | "Extension"
+  | "Education";
 
 export interface Project {
   name: string;
