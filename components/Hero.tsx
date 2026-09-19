@@ -8,7 +8,7 @@ export function Hero() {
       />
 
       <div className="relative mx-auto w-full max-w-5xl px-6 py-24 sm:py-32">
-        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-vertex-steel">
+        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-vertex-silverMuted">
           Progetti indipendenti
         </p>
 
@@ -27,7 +27,7 @@ export function Hero() {
 
         <a
           href="#projects"
-          className="mt-10 inline-flex items-center gap-2 text-sm text-vertex-silverMuted underline-offset-4 transition-colors duration-200 ease-out hover:text-vertex-highlight hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vertex-highlight/40 motion-reduce:transition-none"
+          className="mt-10 inline-flex min-h-6 items-center gap-2 text-sm text-vertex-silverMuted underline-offset-4 transition-colors duration-200 ease-out hover:text-vertex-highlight hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vertex-highlight/40 motion-reduce:transition-none"
         >
           Vedi i progetti
           <span aria-hidden>&darr;</span>

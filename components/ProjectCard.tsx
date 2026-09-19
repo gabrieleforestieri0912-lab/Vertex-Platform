@@ -15,7 +15,7 @@ const statusStyles: Record<ProjectStatus, string> = {
   live: "border-vertex-highlight/30 bg-vertex-highlight/10 text-vertex-highlight",
   beta: "border-vertex-silver/25 bg-vertex-silver/5 text-vertex-silver",
   building: "border-vertex-border bg-transparent text-vertex-silverMuted",
-  paused: "border-vertex-border/70 bg-transparent text-vertex-steel",
+  paused: "border-vertex-border/70 bg-transparent text-vertex-silverMuted",
 };
 
 const statusDotStyles: Record<ProjectStatus, string> = {
@@ -27,7 +27,7 @@ const statusDotStyles: Record<ProjectStatus, string> = {
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="group relative flex flex-col justify-between gap-6 rounded-lg border border-vertex-border bg-vertex-surface p-6 transition duration-200 ease-out will-change-transform hover:border-vertex-steel/60 group-focus-within:border-vertex-steel/60 motion-safe:hover:-translate-y-1 motion-reduce:transition-none">
+    <article className="group relative flex flex-col justify-between gap-6 rounded-lg border border-vertex-border bg-vertex-surface p-6 transition duration-200 ease-out will-change-transform hover:border-vertex-steel/60 focus-within:border-vertex-steel/60 focus-within:ring-2 focus-within:ring-vertex-highlight/50 motion-safe:hover:-translate-y-1 motion-reduce:transition-none">
       <div>
         <div className="flex items-start justify-between gap-4">
           <h3 className="text-lg font-medium text-vertex-highlight">
@@ -43,7 +43,7 @@ export function ProjectCard({ project }: { project: Project }) {
             </a>
           </h3>
 
-          <span className="shrink-0 pt-1 text-[11px] font-medium uppercase tracking-[0.16em] text-vertex-steel">
+          <span className="shrink-0 pt-1 text-[11px] font-medium uppercase tracking-[0.16em] text-vertex-silverMuted">
             {project.category}
           </span>
         </div>

@@ -14,7 +14,7 @@ export function Footer() {
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-vertex-silver">Vertex</p>
-          <p className="mt-1 text-xs text-vertex-steel">
+          <p className="mt-1 text-xs text-vertex-silverMuted">
             &copy; {new Date().getFullYear()} Gabriele. Tutti i diritti
             riservati.
           </p>
@@ -26,7 +26,7 @@ export function Footer() {
               <li key={link.label}>
                 <a
                   href={link.href}
-                  className="text-xs uppercase tracking-[0.16em] text-vertex-silverMuted transition-colors duration-200 ease-out hover:text-vertex-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vertex-highlight/40 motion-reduce:transition-none"
+                  className="inline-flex min-h-6 items-center text-xs uppercase tracking-[0.16em] text-vertex-silverMuted transition-colors duration-200 ease-out hover:text-vertex-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vertex-highlight/40 motion-reduce:transition-none"
                 >
                   {link.label}
                 </a>

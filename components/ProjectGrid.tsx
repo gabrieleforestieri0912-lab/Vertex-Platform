@@ -11,7 +11,7 @@ export function ProjectGrid() {
         <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-vertex-silverMuted">
           Progetti
         </h2>
-        <span className="text-xs text-vertex-steel">
+        <span className="text-xs text-vertex-silverMuted">
           {projects.length} in totale
         </span>
       </div>
