@@ -11,6 +11,10 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="border-t border-vertex-border">
+      <div
+        aria-hidden
+        className="h-px w-full bg-gradient-to-r from-transparent via-accent/40 to-transparent"
+      />
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-vertex-silver">Vertex</p>
@@ -26,7 +30,7 @@ export function Footer() {
               <li key={link.label}>
                 <a
                   href={link.href}
-                  className="inline-flex min-h-6 items-center text-xs uppercase tracking-[0.16em] text-vertex-silverMuted transition-colors duration-200 ease-out hover:text-vertex-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vertex-highlight/40 motion-reduce:transition-none"
+                  className="inline-flex min-h-6 items-center text-xs uppercase tracking-[0.16em] text-vertex-silverMuted transition-colors duration-200 ease-out hover:text-accent-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft motion-reduce:transition-none"
                 >
                   {link.label}
                 </a>

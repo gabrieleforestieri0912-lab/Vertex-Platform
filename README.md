@@ -9,8 +9,23 @@ Niente CMS, niente database, niente API: i progetti sono hardcoded in
 ## Stack
 
 - Next.js 14 (App Router) + TypeScript
-- Tailwind CSS (design token `vertex.*` in `tailwind.config.ts`)
+- Tailwind CSS (design token in `tailwind.config.ts`)
 - Nessuna dipendenza esterna oltre a Next/React/Tailwind
+
+## Palette
+
+Base scura (`vertex.*`) + **un solo accento** (`accent.*`), tarato per contrasto AA
+su `vertex.bg`:
+
+| Token | Valore | Uso | Contrasto su `#0A0A0A` |
+| --- | --- | --- | --- |
+| `accent` | `#8B5CF6` | bordi, icone, glow, monogrammi | 4.6:1 (UI: min 3:1) |
+| `accent-soft` | `#A78BFA` | testo, link, etichette | 7.2:1 (testo: min 4.5:1) |
+| `accent-deep` | `#6D28D9` | riempimenti con testo bianco | 7.1:1 |
+
+Per cambiare accento basta aggiornare i tre valori in `tailwind.config.ts`: niente
+colori hardcoded nei componenti (l'unica eccezione e' `::selection` in
+`app/globals.css` e il bordo dell'immagine OG).
 
 ## Avvio in locale
 
@@ -49,6 +64,9 @@ Regole:
   `statusDotStyles` in `components/ProjectCard.tsx`.
 - `url` è il link esterno al prodotto o alla waitlist: la card lo apre in una
   nuova tab (`target="_blank" rel="noopener noreferrer"`).
+- `logo` (opzionale) è il path pubblico del logo, es. `/logos/agentcloud.png`.
+  Senza questo campo la card mostra un monogramma col colore accento. Vedi
+  `public/logos/README.md` per formato e convenzioni.
 - L'ordine nell'array è l'ordine di visualizzazione nella griglia.
 - Lo stato è comunicato con opacità/peso, non con colori semantici: la palette
   resta monocromatica.
@@ -59,22 +77,30 @@ Regole:
 ```
 app/
   layout.tsx            # font, sfondo vertex.bg, metadata + OG
-  page.tsx              # Hero + ProjectGrid + Footer (unica pagina)
+  page.tsx              # Hero + ProjectGrid + About + Footer (unica pagina)
   opengraph-image.tsx   # OG image 1200x630 generata a build time (placeholder)
 components/
-  Hero.tsx              # nome + claim, allineamento a sinistra
+  Hero.tsx              # nome, claim, CTA, logo Vertex (public/vertex.png)
   ProjectGrid.tsx       # griglia responsive
-  ProjectCard.tsx       # nome, tagline, badge stato/categoria, link esterno
+  ProjectCard.tsx       # logo/monogramma, nome, tagline, badge, link esterno
+  About.tsx             # sezione "a 360" (blocchi da compilare)
   Footer.tsx            # contatti/social (href "#" da sostituire)
 data/
   projects.ts           # elenco progetti
 lib/
   types.ts              # tipo Project, ProjectStatus, ProjectCategory
+public/
+  vertex.png            # logo Vertex, usato nella hero
+  logos/                # loghi dei singoli progetti (vedi README dentro)
 ```
 
 ## Contenuti da finalizzare
 
+- Sezione "a 360" in `components/About.tsx`: riempi l'oggetto `about`
+  (`intro`, `focus`, `stack`, `facts`). I campi vuoti mostrano un box tratteggiato
+  "da compilare": nessun testo e' stato inventato.
 - Claim dell'hero in `components/Hero.tsx` (`TODO(copy)`).
+- Loghi dei progetti: vedi `public/logos/README.md` (finche' mancano, monogramma).
 - Tagline in `data/projects.ts`: quelle attuali sono segnaposto.
 - Link contatti/social in `components/Footer.tsx`: gli `href` sono `#`.
 - Copia IT definitiva della lista progetti (la lista completa dei progetti non è

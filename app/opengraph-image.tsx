@@ -25,7 +25,7 @@ export default function OpengraphImage() {
           justifyContent: "space-between",
           backgroundColor: "#0A0A0A",
           padding: "80px",
-          border: "1px solid #262626",
+          borderTop: "6px solid #8B5CF6",
         }}
       >
         <div
@@ -33,7 +33,7 @@ export default function OpengraphImage() {
             fontSize: 26,
             letterSpacing: 6,
             textTransform: "uppercase",
-            color: "#5A5A5A",
+            color: "#A78BFA",
           }}
         >
           Progetti indipendenti

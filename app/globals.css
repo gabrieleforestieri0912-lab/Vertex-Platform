@@ -18,3 +18,9 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Unico accento cromatico del sito (accent.DEFAULT di tailwind.config.ts). */
+::selection {
+  background-color: rgb(139 92 246 / 0.35);
+  color: #e8e8e8;
+}

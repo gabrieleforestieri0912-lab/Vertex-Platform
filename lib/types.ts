@@ -7,4 +7,9 @@ export interface Project {
   status: ProjectStatus;
   category: ProjectCategory;
   url: string;
+  /**
+   * Logo del progetto, path dentro /public (es. "/logos/agentcloud.png").
+   * Se assente, la card mostra un monogramma col colore accento.
+   */
+  logo?: string;
 }
