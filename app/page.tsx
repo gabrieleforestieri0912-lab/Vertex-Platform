@@ -1,20 +1,15 @@
-import { projects } from "@/data/projects";
+import { Footer } from "@/components/Footer";
+import { Hero } from "@/components/Hero";
+import { ProjectGrid } from "@/components/ProjectGrid";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-vertex-bg text-vertex-silver">
-      {/* Fase 1 placeholder — Fase 2 will replace with Hero + ProjectGrid + Footer */}
-      <div className="mx-auto max-w-5xl px-6 py-16">
-        <h1 className="text-4xl font-bold tracking-tight text-vertex-highlight">
-          Vertex
-        </h1>
-        <p className="mt-2 text-vertex-silverMuted">
-          Fase 1 scaffold complete — components coming in Fase 2.
-        </p>
-        <p className="mt-6 text-sm text-vertex-steel">
-          {projects.length} projects loaded from data/projects.ts
-        </p>
-      </div>
-    </main>
+    <div className="flex min-h-screen flex-col bg-vertex-bg text-vertex-silver">
+      <main className="flex-1">
+        <Hero />
+        <ProjectGrid />
+      </main>
+      <Footer />
+    </div>
   );
 }
