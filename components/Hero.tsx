@@ -19,7 +19,12 @@ export function Hero() {
             Progetti indipendenti
           </p>
 
-          <h1 className="mt-5 text-5xl font-semibold tracking-tight text-vertex-highlight sm:text-6xl lg:text-7xl">
+          {/*
+            min(3rem, 18vw): a zoom normale resta 48px, ma il termine in vw
+            impedisce al wordmark di sfondare lo schermo quando il testo viene
+            ingrandito al 200% (i rem raddoppiano, i vw no).
+          */}
+          <h1 className="mt-5 text-[min(3rem,18vw)] font-semibold tracking-tight text-vertex-highlight sm:text-6xl lg:text-7xl">
             Vertex
           </h1>
 
@@ -35,13 +40,13 @@ export function Hero() {
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <a
               href="#projects"
-              className="inline-flex min-h-11 items-center rounded-md bg-accent-deep px-5 text-sm font-medium text-white transition-colors duration-200 ease-out hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-offset-2 focus-visible:ring-offset-vertex-bg motion-reduce:transition-none"
+              className="inline-flex min-h-11 max-w-full items-center rounded-md bg-accent-deep px-5 text-sm font-medium text-white transition-colors duration-200 ease-out hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-offset-2 focus-visible:ring-offset-vertex-bg motion-reduce:transition-none"
             >
               Vedi i progetti
             </a>
             <a
               href="#about"
-              className="inline-flex min-h-11 items-center rounded-md border border-vertex-border px-5 text-sm font-medium text-vertex-silver transition-colors duration-200 ease-out hover:border-accent/40 hover:text-vertex-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-offset-2 focus-visible:ring-offset-vertex-bg motion-reduce:transition-none"
+              className="inline-flex min-h-11 max-w-full items-center rounded-md border border-vertex-border px-5 text-sm font-medium text-vertex-silver transition-colors duration-200 ease-out hover:border-accent/40 hover:text-vertex-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-offset-2 focus-visible:ring-offset-vertex-bg motion-reduce:transition-none"
             >
               Chi sono
             </a>

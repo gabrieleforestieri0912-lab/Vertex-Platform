@@ -13,11 +13,20 @@ const about: {
   stack: string[];
   facts: Fact[];
 } = {
-  // TUA: 2-3 righe su chi sei e cosa fai oggi.
-  intro: null,
+  /**
+   * BOZZA da correggere (scritta sui fatti verificabili: progetti indie
+   * pubblicati da solo, ciclo completo idea -> codice -> deploy).
+   */
+  intro:
+    "Progetto e sviluppo prodotti digitali in autonomia, dall'idea al deploy: " +
+    "web app, tool desktop e servizi pubblicati sotto il nome Vertex.",
 
-  // TUA: cosa stai costruendo adesso, 2-4 punti (e' copy, non dato di repo).
-  focus: [],
+  // BOZZA da correggere: cosa stai costruendo adesso.
+  focus: [
+    "Consolidare i prodotti gi\u00e0 online (Curriculuxe, Taskly, StackUp) prima di aggiungerne di nuovi.",
+    "Web app in Next.js con Supabase e Stripe: autenticazione, pagamenti, dashboard.",
+    "Sperimentare con LLM e agenti (AgentCloud, Voiceflow) per automazioni concrete.",
+  ],
 
   /**
    * Fonti:
@@ -125,11 +134,19 @@ export function About() {
             </Block>
 
             <Block title="In breve">
+              {/*
+                Su schermi stretti label e valore si impilano: con la larghezza
+                fissa (w-24) e il gap in rem, a testo ingrandito al 200% la riga
+                sfondava la pagina di ~76px.
+              */}
               {about.facts.length ? (
                 <dl className="space-y-3">
                   {about.facts.map((fact) => (
-                    <div key={fact.label} className="flex gap-4 text-sm">
-                      <dt className="w-24 shrink-0 text-vertex-silverMuted">
+                    <div
+                      key={fact.label}
+                      className="flex flex-col text-sm sm:flex-row sm:gap-4"
+                    >
+                      <dt className="text-vertex-silverMuted sm:w-24 sm:shrink-0">
                         {fact.label}
                       </dt>
                       <dd className="text-vertex-silver">{fact.value}</dd>
