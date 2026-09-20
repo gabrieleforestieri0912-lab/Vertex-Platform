@@ -34,7 +34,7 @@ npm install
 npm run dev
 ```
 
-Apri [http://localhost:3000](http://localhost:3000).
+Apri https://vertex-startup.vercel.app (prod) o in locale http://localhost:3000 dopo `npm run dev`.
 
 ```bash
 npm run build   # build di produzione
@@ -108,10 +108,7 @@ public/
 
 ## Deploy
 
-Target: Vercel. Nessuna variabile d'ambiente obbligatoria; opzionale
-`NEXT_PUBLIC_SITE_URL` per forzare l'URL pubblico usato dai meta tag OG quando il
-custom domain è attivo (in alternativa viene usato l'URL del deployment Vercel).
-Il collegamento al team Vercel va fatto a mano dopo review del codice.
+Target: Vercel — **https://vertex-startup.vercel.app**. `NEXT_PUBLIC_SITE_URL` è già impostato a quel dominio in `app/layout.tsx` (fallback). Il push su `main` deploya automaticamente.
 
 ## Note operative
 
