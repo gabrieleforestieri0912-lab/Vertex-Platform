@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import "./globals.css";
 
@@ -43,6 +45,12 @@ export default function RootLayout({
     <html lang="it">
       <body className="bg-vertex-bg font-sans antialiased">
         <MotionProvider>{children}</MotionProvider>
+        {/*
+         * Telemetria Vercel: attive solo sui deployment Vercel (no-op in
+         * locale), senza cookie e senza chiavi da configurare.
+         */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
