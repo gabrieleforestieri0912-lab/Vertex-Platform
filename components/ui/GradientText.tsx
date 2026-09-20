@@ -3,16 +3,15 @@ import { accentVars, type AccentFamily } from "@/lib/accents";
 import { cn } from "@/lib/cn";
 
 export interface GradientTextProps extends HTMLAttributes<HTMLSpanElement> {
-  /** "metal" usa il riflesso metallico (filo conduttore col logo tornado). */
   variant?: "accent" | "metal";
-  family?: AccentFamily | "brand";
+  family?: AccentFamily;
 }
 
 /** Testo con gradiente. Il fallback (niente background-clip: text) è un
  *  colore pieno "soft" della famiglia, già AA su vertex.bg. */
 export function GradientText({
   variant = "accent",
-  family = "brand",
+  family = "violet",
   className,
   style,
   children,

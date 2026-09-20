@@ -21,11 +21,7 @@ const contactLinks = [
 export function Footer() {
   return (
     <footer className="border-t border-vertex-border">
-      {/* Hairline sfumata: filo conduttore metallico del sito. */}
-      <div
-        aria-hidden
-        className="h-px w-full bg-gradient-to-r from-transparent via-accent/40 to-transparent"
-      />
+      <div aria-hidden className="h-px w-full bg-vertex-border" />
 
       <Container className="py-12">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
@@ -36,16 +32,8 @@ export function Footer() {
               href="#"
               className="inline-flex min-h-11 items-center gap-2.5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-offset-2 focus-visible:ring-offset-vertex-bg"
             >
-              <Image
-                src="/vertex.png"
-                alt=""
-                width={24}
-                height={24}
-                className="mix-blend-screen brightness-150"
-              />
-              <span className="text-metal text-sm font-semibold tracking-tight">
-                Vertex
-              </span>
+              <Image src="/vertex.png" alt="" width={24} height={24} className="rounded-md" />
+              <span className="text-sm font-bold tracking-tight text-vertex-highlight">Vertex</span>
             </a>
             <p className="mt-2 text-xs text-vertex-silverMuted">
               &copy; {new Date().getFullYear()} Gabriele. Tutti i diritti

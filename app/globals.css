@@ -3,41 +3,41 @@
 @tailwind utilities;
 
 /*
- * Design token — Fase 1 (restyling Vertex Hub).
- * Le superfici/testo restano neutrali; i gradienti sono nominati e applicati
- * via utility (bordi, glow, testo display), mai come riempimenti dietro a
- * paragrafi lunghi (regola contrasto AA).
+ * Vertex — flat, pulito, moderno. Zero gradienti.
+ * Ogni progetto ha un colore solido (solid) preso dal suo sito live.
+ * Le superfici restano neutre scure; l'accento è solo una barra + tile + dot.
  */
 :root {
-  /* Superfici (D1: dark-first) */
   --vertex-bg: #0a0a0a;
-  --vertex-bg-raised: #0f0f14;
-  --vertex-surface: #141414;
-  --vertex-surface-elevated: #191922;
-  --vertex-border: #262626;
+  --vertex-bg-raised: #111113;
+  --vertex-surface: #141416;
+  --vertex-surface-elevated: #1a1a1e;
+  --vertex-border: #262628;
+  --vertex-border-strong: #2e2e32;
 
-  /* Testo */
-  --vertex-highlight: #e8e8e8;
-  --vertex-silver: #c4c4c4;
-  --vertex-silver-muted: #8a8a8a;
+  --vertex-highlight: #f2f2f3;
+  --vertex-silver: #c8c8cc;
+  --vertex-silver-muted: #8a8a90;
 
-  /* Filo conduttore metallico: il wordmark e i bordi "premiati" ereditano
-     dal grigio del logo tornado. Fallback solido prima del gradiente. */
-  --metal-grad: linear-gradient(
-    100deg,
-    #8a8a8a 0%,
-    #e8e8e8 35%,
-    #ffffff 50%,
-    #e8e8e8 65%,
-    #8a8a8a 100%
-  );
+  /* solid accent tokens — usati via CSS vars --accent e --accent-soft */
+  --accent-violet: #7c5cfc;
+  --accent-violet-soft: #a78bfa;
+  --accent-blue: #3b82f6;
+  --accent-blue-soft: #60a5fa;
+  --accent-cyan: #06b6d4;
+  --accent-cyan-soft: #22d3ee;
+  --accent-emerald: #10b981;
+  --accent-emerald-soft: #34d399;
+  --accent-amber: #f59e0b;
+  --accent-amber-soft: #fbbf24;
+  --accent-red: #ef4444;
+  --accent-red-soft: #f87171;
+  --accent-magenta: #ec4899;
+  --accent-magenta-soft: #f472b6;
+  --accent-slate: #64748b;
+  --accent-slate-soft: #94a3b8;
 
-  /* Gradienti nominati (D2): 2-3 stop tra famiglie vicine. */
-  --grad-violet: linear-gradient(120deg, #a78bfa 0%, #8b5cf6 55%, #6366f1 100%);
-  --grad-cyan: linear-gradient(120deg, #7dd3fc 0%, #22d3ee 55%, #2dd4bf 100%);
-  --grad-magenta: linear-gradient(120deg, #f9a8d4 0%, #e879f9 50%, #d946ef 100%);
-  --grad-amber: linear-gradient(120deg, #fcd34d 0%, #f59e0b 55%, #ea580c 100%);
-  --grad-brand: linear-gradient(120deg, #a78bfa 0%, #8b5cf6 40%, #22d3ee 100%);
+  --metal: #e8e8ea;
 }
 
 html {
@@ -52,7 +52,7 @@ html {
 
 body {
   background-color: #0a0a0a;
-  color: #c4c4c4;
+  color: #c8c8cc;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -63,201 +63,68 @@ body {
   }
 }
 
-/* ------------------------------------------------------------------ */
-/* Gradienti applicati                                                 */
-/* ------------------------------------------------------------------ */
-
-/* Testo con gradiente della famiglia (var --accent-grad setta accentVars()).
-   Fallback: colore pieno "soft" della famiglia (AA), gradiente solo se il
-   browser supporta background-clip: text. */
-.text-grad {
-  color: var(--accent-soft, #a78bfa);
-}
-
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .text-grad {
-    background-image: var(--accent-grad, var(--grad-brand));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-}
-
-/* Wordmark metallico (filo conduttore col logo tornado). */
+/* wordmark pulito — niente gradienti */
 .text-metal {
-  color: #e8e8e8;
+  color: #f2f2f3;
+  letter-spacing: -0.03em;
 }
 
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .text-metal {
-    background-image: var(--metal-grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-}
-
-/* Bordo sfumato 1px: un ::before mascherato lascia visibile solo l'anello.
-   Dentro @supports: senza mask il ::before coprirebbe tutta la card. */
-.gradient-border {
-  position: relative;
+/* card moderna: bordo sottile, angoli 16px, ombra morbida */
+.card-flat {
+  background: var(--vertex-surface);
   border: 1px solid var(--vertex-border);
+  border-radius: 16px;
 }
 
-@supports ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
-  .gradient-border::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    padding: 1px;
-    background: var(--accent-grad, var(--grad-brand));
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    opacity: 0.55;
-    pointer-events: none;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .gradient-border::before {
-      transition: opacity 0.2s ease-out;
-    }
-  }
-
-  .gradient-border:hover::before,
-  .gradient-border:focus-within::before {
-    opacity: 0.95;
-  }
+/* barra solida superiore (colore progetto) */
+.card-accent-bar {
+  height: 3px;
+  width: 100%;
+  background: var(--accent, var(--accent-violet));
+  border-radius: 16px 16px 0 0;
 }
 
-/* Glow colorato dietro le superfici: elemento GIA' sfocato staticamente,
-   animabile solo con opacity (mai filter in transizione). */
-.glow-grad {
-  position: absolute;
-  inset: -30%;
-  z-index: -1;
-  background: var(--accent-grad, var(--grad-brand));
-  filter: blur(56px);
-  opacity: 0.18;
-  pointer-events: none;
+/* tile icona: quadrato 44px con bg tenue */
+.tile-flat {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .glow-grad {
-    transition: opacity 0.3s ease-out;
-  }
-}
-
-.group:hover .glow-grad,
-.group:focus-within .glow-grad {
-  opacity: 0.32;
-}
-
-/* Blob per l'aurora della hero (Fase 3): sfocatura statica, il movimento
-   è solo transform/opacity via CSS keyframes (le entrate/interazioni usano
-   framer-motion; l'aurora resta decoro a costo zero di JS). */
-.blob {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(72px);
-  will-change: transform;
-  pointer-events: none;
-}
-
-/* Grana + vignettatura per profondita' (overlay statico, decorativo). */
-.grain-overlay {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(
-      120% 90% at 50% 0%,
-      transparent 55%,
-      rgba(0, 0, 0, 0.55) 100%
-    ),
-    repeating-conic-gradient(
-      rgba(255, 255, 255, 0.012) 0% 0.0001%,
-      transparent 0.0002% 0.0004%
-    );
-  pointer-events: none;
-}
-
-/* Unico accento cromatico della selezione (coerente col brand viola). */
 ::selection {
-  background-color: rgb(139 92 246 / 0.35);
-  color: #e8e8e8;
+  background-color: rgb(124 92 252 / 0.3);
+  color: #f2f2f3;
 }
 
-/* ------------------------------------------------------------------ */
-/* Aurora della hero (Fase 3): movimento SOLO transform + opacity.     */
-/* I blob sono già sfocati staticamente (.blob), il filter non anima.  */
-/* ------------------------------------------------------------------ */
-
-@keyframes aurora-a {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(5%, 7%, 0) scale(1.14);
-  }
-  100% {
-    transform: translate3d(-4%, -5%, 0) scale(0.94);
-  }
+/* --- animazioni leggere --- */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.85); }
+}
+@keyframes shimmer-bar {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
 }
 
-@keyframes aurora-b {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(-6%, 4%, 0) scale(0.92);
-  }
-  100% {
-    transform: translate3d(3%, -6%, 0) scale(1.1);
-  }
+.animate-float {
+  animation: float-y 6s ease-in-out infinite;
 }
-
-@keyframes aurora-c {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(4%, -5%, 0) scale(1.08);
-  }
-  100% {
-    transform: translate3d(-5%, 4%, 0) scale(0.95);
-  }
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
 }
-
-.animate-aurora-a {
-  animation: aurora-a 26s ease-in-out infinite alternate;
-}
-
-/* Ritardi negativi: i blob partono disallineati, senza stacco iniziale. */
-.animate-aurora-b {
-  animation: aurora-b 32s ease-in-out infinite alternate;
-  animation-delay: -8s;
-}
-
-.animate-aurora-c {
-  animation: aurora-c 38s ease-in-out infinite alternate;
-  animation-delay: -16s;
-}
-
-/*
- * Ingresso hero e reveal on scroll ora passano da framer-motion
- * (components/ui/Reveal.tsx, lib/motion.ts): solo transform/opacity, con
- * riduzione a semplice fade per prefers-reduced-motion via MotionConfig.
- */
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-aurora-a,
-  .animate-aurora-b,
-  .animate-aurora-c {
+  .animate-float,
+  .animate-pulse-dot {
     animation: none;
   }
 }

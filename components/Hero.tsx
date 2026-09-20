@@ -2,16 +2,9 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { AuroraBackground } from "@/components/AuroraBackground";
 import { countByStatus, totalProjects } from "@/data/projects";
-import { EASE, fadeScale, fadeUp, stagger } from "@/lib/motion";
+import { EASE } from "@/lib/motion";
 
-/**
- * Contatori hero (Fase 3): tutti derivati dai dati di data/projects.ts,
- * zero numeri scritti a mano. Le etichette riprendono le parole già usate
- * nella copy del sito ("cosa è live, cosa è in beta e cosa è ancora in
- * cantiere"). `paused` escluso: 0 progetti e fuori dalla narrativa.
- */
 const counters = [
   { label: "Progetti", value: totalProjects },
   { label: "Live", value: countByStatus.live },
@@ -19,133 +12,115 @@ const counters = [
   { label: "In cantiere", value: countByStatus.building },
 ];
 
-/**
- * Hero (Fase 3, motion di Fase 6 rivisto con framer-motion): entrance
- * coreografata via variants + staggerChildren (l'ordine è quello del DOM).
- * Il float lento del logo è un loop di transform puro, disattivato dal
- * MotionConfig per chi preferisce motion ridotto. L'aurora dietro resta in
- * CSS keyframes: decoro infinito, zero JS nel loop.
- */
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-vertex-border">
-      <AuroraBackground />
+    <section className="relative overflow-hidden border-b border-vertex-border bg-vertex-bg">
+      {/* flat subtle grid decoration — no gradients */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
 
-      <motion.div
-        className="relative mx-auto grid w-full max-w-5xl items-center gap-12 px-6 py-20 sm:py-28 lg:grid-cols-[1.4fr_1fr] xl:max-w-6xl xl:gap-16 2xl:max-w-7xl"
-        variants={stagger(0.09, 0.05)}
-        initial="hidden"
-        animate="visible"
-      >
-        <div>
+      <div className="relative mx-auto grid w-full max-w-5xl items-center gap-12 px-6 py-16 sm:py-20 lg:grid-cols-[1.35fr_0.9fr] xl:max-w-6xl xl:gap-16 2xl:max-w-7xl">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+          }}
+        >
           <motion.p
-            variants={fadeUp}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft"
+            variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } }}
+            className="inline-flex items-center gap-2 rounded-full border border-vertex-border bg-vertex-surface px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-vertex-silverMuted"
           >
-            Progetti indipendenti
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse-dot" aria-hidden />
+            Piattaforma Vertex
           </motion.p>
 
-          {/*
-            min(3rem, 18vw): a zoom normale resta 48px, ma il termine in vw
-            impedisce al wordmark di sfondare lo schermo quando il testo viene
-            ingrandito al 200% (i rem raddoppiano, i vw no).
-            Wordmark metallico: riflesso del logo tornado (Fase 1).
-          */}
           <motion.h1
-            variants={fadeScale}
-            transition={{ duration: 0.8, ease: EASE }}
-            className="text-metal mt-5 text-[min(3rem,18vw)] font-semibold tracking-tight sm:text-6xl lg:text-7xl"
+            variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } } }}
+            className="mt-5 text-[44px] font-bold tracking-tight text-vertex-highlight sm:text-6xl lg:text-[64px] leading-[0.9]"
           >
-            Vertex
+            Tutti i miei
+            <br />
+            <span className="text-vertex-silverMuted">progetti.</span>
           </motion.h1>
 
-          {/*
-            TODO(copy): claim provvisorio, da rivedere.
-            L'elenco dei progetti arriva da data/projects.ts.
-          */}
           <motion.p
-            variants={fadeUp}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="mt-6 max-w-xl text-balance text-lg leading-relaxed text-vertex-silver xl:max-w-2xl"
+            variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } }}
+            className="mt-5 max-w-xl text-balance text-[17px] leading-relaxed text-vertex-silverMuted"
           >
-            Un unico posto per i progetti che sto costruendo: cosa &egrave;
-            live, cosa &egrave; in beta e cosa &egrave; ancora in cantiere.
+            Non un catalogo. Non un marketplace. La raccolta ordinata di ciò che sto costruendo —
+            dal live al cantiere, ogni card con il colore del suo sito.
           </motion.p>
 
-          {/* Contatori derivati dai dati (mai numeri a mano). */}
           <motion.dl
-            variants={fadeUp}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="mt-9 flex flex-wrap gap-x-8 gap-y-4"
+            variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } }}
+            className="mt-8 flex flex-wrap gap-6"
           >
-            {counters.map((counter) => (
-              <div key={counter.label}>
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-vertex-silverMuted">
-                  {counter.label}
-                </dt>
-                <dd className="mt-1 text-2xl font-semibold tabular-nums text-vertex-highlight">
-                  {counter.value}
-                </dd>
+            {counters.map((c) => (
+              <div key={c.label} className="rounded-xl border border-vertex-border bg-vertex-surface px-4 py-3 min-w-[92px]">
+                <dt className="text-[10px] font-semibold uppercase tracking-[0.14em] text-vertex-silverMuted">{c.label}</dt>
+                <dd className="mt-1 text-xl font-bold tabular-nums text-vertex-highlight">{c.value}</dd>
               </div>
             ))}
           </motion.dl>
 
           <motion.div
-            variants={fadeUp}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="mt-9 flex flex-wrap items-center gap-3"
+            variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } }}
+            className="mt-8 flex flex-wrap items-center gap-3"
           >
-            {/*
-              hover scurisce invece di schiarire: bianco su accent-deep/85
-              resta ≥ 7:1 (fix contrasto Fase 1; hover su accent era 4.2:1).
-            */}
             <a
               href="#projects"
-              className="inline-flex min-h-11 max-w-full items-center rounded-md bg-accent-deep px-5 text-sm font-medium text-white transition-colors duration-200 ease-out hover:bg-accent-deep/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-offset-2 focus-visible:ring-offset-vertex-bg motion-reduce:transition-none"
+              className="inline-flex min-h-11 items-center rounded-full bg-white px-6 text-sm font-semibold text-black transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
             >
-              Vedi i progetti
+              Esplora i progetti
             </a>
             <a
               href="#about"
-              className="inline-flex min-h-11 max-w-full items-center rounded-md border border-vertex-border px-5 text-sm font-medium text-vertex-silver transition-colors duration-200 ease-out hover:border-accent/40 hover:text-vertex-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-offset-2 focus-visible:ring-offset-vertex-bg motion-reduce:transition-none"
+              className="inline-flex min-h-11 items-center rounded-full border border-vertex-border bg-vertex-surface px-6 text-sm font-medium text-vertex-silver transition-colors hover:border-vertex-border-strong hover:text-vertex-highlight"
             >
               Chi sono
             </a>
           </motion.div>
-        </div>
+        </motion.div>
 
-        {/* Logo Vertex: asset reale dal repo, prima non usato da nessuna parte. */}
         <motion.div
-          variants={fadeScale}
-          transition={{ duration: 0.9, ease: EASE }}
-          className="relative mx-auto w-full max-w-xs lg:max-w-none"
+          initial={{ opacity: 0, y: 16, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: EASE, delay: 0.25 } }}
+          className="relative mx-auto w-full max-w-[320px] lg:max-w-none"
         >
-          {/* Glow brand dietro il logo: già sfocato staticamente (.glow-grad). */}
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            className="relative"
-          >
-            <div aria-hidden className="glow-grad" />
-            <Image
-              src="/vertex.png"
-              alt="Logo Vertex"
-              width={1254}
-              height={1254}
-              priority
-              sizes="(min-width: 1024px) 320px, 256px"
-              /*
-                mix-blend-screen: il fondo nero del PNG sparisce sulla base scura.
-                brightness-150: il logo ha il 90% dei pixel sotto 33/255, senza boost
-                su #0A0A0A la parte visibile resta ~11% (misurato: sale al 17%).
-                Niente contrast-*: il pivot sul grigio 50% schiaccia i toni scuri.
-              */
-              className="relative mx-auto w-full max-w-[16rem] mix-blend-screen brightness-150 lg:max-w-[19rem] xl:max-w-[21rem]"
-            />
+          <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} className="relative">
+            <div className="relative rounded-[28px] border border-vertex-border bg-vertex-surface p-6 shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
+              <Image
+                src="/vertex.png"
+                alt="Logo Vertex"
+                width={320}
+                height={320}
+                priority
+                className="mx-auto w-full max-w-[180px] lg:max-w-[200px] object-contain"
+              />
+              <div className="mt-6 flex items-center justify-center gap-2 text-xs text-vertex-silverMuted">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse-dot" />
+                16 progetti · aggiornato ora
+              </div>
+            </div>
+            {/* floating mini cards hint */}
+            <div className="absolute -left-4 top-6 hidden rounded-xl border border-vertex-border bg-vertex-bgRaised px-3 py-2 shadow-xl sm:flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#3B82F6]" /> <span className="text-xs font-medium text-vertex-highlight">CaptionBoost</span>
+            </div>
+            <div className="absolute -right-3 bottom-8 hidden rounded-xl border border-vertex-border bg-vertex-bgRaised px-3 py-2 shadow-xl sm:flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#EF4444]" /> <span className="text-xs font-medium text-vertex-highlight">Maxthenics</span>
+            </div>
           </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }
