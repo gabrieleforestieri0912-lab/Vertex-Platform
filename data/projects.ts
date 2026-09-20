@@ -11,7 +11,8 @@ import type {
  * COME SONO STATI COMPILATI — tutto da fonti verificabili:
  * - `tagline`: prima riga descrittiva del README della repo, oppure meta
  *   description del sito live. Dove non esiste nessuna fonte, resta il
- *   segnaposto "Descrizione da definire" (5 progetti) — niente testo inventato.
+ *   segnaposto "Descrizione da definire" (3 progetti: Taskly-Desktop,
+ *   Mind-Project, AlphaPrjct) — niente testo inventato.
  * - `url`: la homepage pubblica SOLO se risponde 200 adesso, altrimenti la repo
  *   GitHub. Verificato il 19/09/2026: i deploy di Taskly, StackUp e Mind-Project
  *   risultano morti (404) e quindi qui puntano alla repo.
@@ -19,7 +20,10 @@ import type {
  *   descritto come completo nel README ma senza deploy pubblico verificato;
  *   `building` = nessuna descrizione di prodotto disponibile.
  *   Stati confermati da Gabriele il 20/09/2026 (riverifica: deploy HTTP 200
- *   e README delle repo — nessun cambio di valore).
+ *   e README delle repo). Seconda revisione, stesso giorno: trovati i deploy
+ *   di Resumari, Semplycode e Maxthenics nei campi homepage delle repo e
+ *   verificati con HTTP 200 → passano a `live`; la repo Taskly-Desktop non
+ *   è più raggiungibile pubblicamente (404: eliminata o resa privata).
  * - `category`: dedotta dalla piattaforma (Next.js -> SaaS, Electron/Flutter
  *   -> Desktop/Mobile, estensione Chrome -> Extension).
  *
@@ -80,6 +84,42 @@ export const projects: Project[] = [
     accent: "magenta",
     icon: "Captions",
   },
+  {
+    name: "Resumari",
+    // Fonti: README della repo + meta description di resumari.vercel.app
+    // (deploy trovato nel campo homepage della repo, verificato 20/09/2026).
+    tagline:
+      "Trasforma i video YouTube in trascrizioni istantanee, riassunti e chat, con estensione Chrome, server MCP e API pubblica.",
+    status: "live",
+    category: "SaaS",
+    url: "https://resumari.vercel.app",
+    accent: "violet",
+    icon: "ScrollText",
+  },
+  {
+    name: "Semplycode",
+    // Fonti: README della repo + deploy semplycode.vercel.app (campo homepage
+    // della repo, verificato 20/09/2026).
+    tagline:
+      "Analizza e spiega il codice con l'AI: scompone la logica, trova i bug e insegna pattern migliori, con estensione Chrome.",
+    status: "live",
+    category: "SaaS",
+    url: "https://semplycode.vercel.app",
+    accent: "violet",
+    icon: "Braces",
+  },
+  {
+    name: "Maxthenics",
+    // Fonte: meta description di maxthenics.vercel.app (campo homepage della
+    // repo, verificato 20/09/2026): prima descrizione reale del prodotto.
+    tagline:
+      "La piattaforma definitiva per il Calisthenics: programmi scientifici personalizzati, tracking avanzato e coaching 1:1 per sbloccare skills come Front Lever e Planche.",
+    status: "live",
+    category: "SaaS",
+    url: "https://maxthenics.vercel.app",
+    accent: "amber",
+    icon: "Dumbbell",
+  },
 
   // --- beta (prodotto descritto, deploy pubblico non verificato) ---
   {
@@ -117,17 +157,6 @@ export const projects: Project[] = [
     icon: "Rocket",
   },
   {
-    name: "Resumari",
-    // Fonte: README della repo
-    tagline:
-      "Trasforma i video YouTube in trascrizioni istantanee, riassunti e chat, con estensione Chrome, server MCP e API pubblica.",
-    status: "beta",
-    category: "SaaS",
-    url: "https://github.com/gabrieleforestieri0912-lab/Resumari",
-    accent: "violet",
-    icon: "ScrollText",
-  },
-  {
     name: "S.A.V.I.A",
     // Fonte: README della repo
     tagline:
@@ -150,17 +179,6 @@ export const projects: Project[] = [
     icon: "Repeat",
   },
   {
-    name: "Semplycode",
-    // Fonte: README della repo
-    tagline:
-      "Analizza e spiega il codice con l'AI: scompone la logica, trova i bug e insegna pattern migliori, con estensione Chrome.",
-    status: "beta",
-    category: "SaaS",
-    url: "https://github.com/gabrieleforestieri0912-lab/Semplycode",
-    accent: "violet",
-    icon: "Braces",
-  },
-  {
     name: "Reskill",
     // Fonte: README della repo
     tagline:
@@ -175,7 +193,9 @@ export const projects: Project[] = [
   // --- building (nessuna descrizione di prodotto disponibile) ---
   {
     name: "Taskly-Desktop",
-    // Nessun README né description: app desktop Electron di Taskly (dai file).
+    // App desktop Electron di Taskly (dai file della repo). Il 20/09/2026 la
+    // repo non è più raggiungibile pubblicamente (404: eliminata o resa
+    // privata); descrizione di prodotto mai esistita pubblicamente.
     // TODO: sostituire con la descrizione reale.
     tagline: "Descrizione da definire",
     status: "building",
@@ -196,21 +216,11 @@ export const projects: Project[] = [
     icon: "Brain",
   },
   {
-    name: "Maxthenics",
-    // README = boilerplate create-next-app: nessuna descrizione di prodotto.
-    // TODO: sostituire con la descrizione reale.
-    tagline: "Descrizione da definire",
-    status: "building",
-    category: "SaaS",
-    url: "https://github.com/gabrieleforestieri0912-lab/Maxthenics",
-    accent: "amber",
-    icon: "Dumbbell",
-  },
-  {
     name: "Macrox",
-    // README = boilerplate Flutter: nessuna descrizione di prodotto.
-    // TODO: sostituire con la descrizione reale.
-    tagline: "Descrizione da definire",
+    // Fonte: description nel pubspec.yaml della repo ("Macrox - Tracker
+    // Calorico AI"). README = boilerplate Flutter.
+    tagline:
+      "Tracker calorico AI per tenere sotto controllo le calorie.",
     status: "building",
     category: "Mobile",
     url: "https://github.com/gabrieleforestieri0912-lab/Macrox",
@@ -219,7 +229,8 @@ export const projects: Project[] = [
   },
   {
     name: "AlphaPrjct",
-    // Nessun README né description.
+    // Nessun README né description; la repo contiene pagine HTML statiche
+    // (Homepage, Courses, Services) — natura del progetto da definire.
     // TODO: sostituire con la descrizione reale.
     tagline: "Descrizione da definire",
     status: "building",
