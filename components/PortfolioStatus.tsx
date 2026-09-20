@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import {
   countByStatus,
@@ -43,19 +44,27 @@ export function PortfolioStatus() {
   return (
     <Section id="stato" className="scroll-mt-24 border-t border-vertex-border">
       <Container>
-        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
-          Avanzamento
-        </p>
-        <h2 className="mt-4 text-2xl font-semibold tracking-tight text-vertex-highlight sm:text-3xl">
-          Il portfolio, stato per stato
-        </h2>
-        <p className="mt-3 max-w-xl text-sm leading-relaxed text-vertex-silverMuted">
-          {totalProjects} progetti, dal cantiere al live.
-        </p>
+        <Reveal>
+          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
+            Avanzamento
+          </p>
+          <h2 className="mt-4 text-2xl font-semibold tracking-tight text-vertex-highlight sm:text-3xl">
+            Il portfolio, stato per stato
+          </h2>
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-vertex-silverMuted">
+            {totalProjects} progetti, dal cantiere al live.
+          </p>
+        </Reveal>
 
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {statusOrder.map((status) => (
-            <StatusColumn key={status} status={status} />
+          {statusOrder.map((status, index) => (
+            <Reveal
+              key={status}
+              delay={Math.min(index * 70, 280)}
+              className="flex"
+            >
+              <StatusColumn status={status} />
+            </Reveal>
           ))}
         </div>
       </Container>

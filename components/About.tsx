@@ -1,3 +1,5 @@
+import { Reveal } from "@/components/ui/Reveal";
+
 /**
  * Sezione "chi sono" a 360°.
  *
@@ -68,14 +70,16 @@ export function About() {
       className="border-t border-vertex-border bg-vertex-bg"
     >
       <div className="mx-auto w-full max-w-5xl scroll-mt-24 px-6 py-16 sm:py-20 xl:max-w-6xl 2xl:max-w-7xl">
-        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
-          Chi sono
-        </p>
-        <h2 className="mt-4 text-2xl font-semibold tracking-tight text-vertex-highlight sm:text-3xl">
-          A 360&deg;
-        </h2>
+        <Reveal>
+          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
+            Chi sono
+          </p>
+          <h2 className="mt-4 text-2xl font-semibold tracking-tight text-vertex-highlight sm:text-3xl">
+            A 360&deg;
+          </h2>
+        </Reveal>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
+        <Reveal delay={140} className="mt-8 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
           <div className="space-y-6">
             <Block title="In due righe">
               {about.intro ? (
@@ -161,7 +165,7 @@ export function About() {
               )}
             </Block>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

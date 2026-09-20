@@ -6,6 +6,7 @@ import { FeaturedProjectCard } from "@/components/FeaturedProjectCard";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
+import { Reveal } from "@/components/ui/Reveal";
 import type { Project, ProjectCategory } from "@/lib/types";
 
 type CategoryFilter = ProjectCategory | "all";
@@ -83,7 +84,8 @@ export function ProjectExplorer({ projects }: { projects: Project[] }) {
   return (
     <div>
       {/* Controlli: ricerca + chip categoria. */}
-      <div className="flex flex-col gap-4">
+      <Reveal delay={120}>
+        <div className="flex flex-col gap-4">
         <div className="relative max-w-md">
           <label htmlFor="project-search" className="sr-only">
             Cerca tra i progetti
@@ -144,28 +146,47 @@ export function ProjectExplorer({ projects }: { projects: Project[] }) {
             </Chip>
           ))}
         </div>
-      </div>
+        </div>
+      </Reveal>
 
       {/* Conteggio risultati: annunciato ai lettori di schermo quando cambia. */}
-      <p
-        role="status"
-        className="mt-8 text-[11px] font-medium uppercase tracking-[0.16em] text-vertex-silverMuted"
-      >
-        {resultsLabel}
-      </p>
+      <Reveal delay={220} className="mt-8">
+        <p
+          role="status"
+          className="text-[11px] font-medium uppercase tracking-[0.16em] text-vertex-silverMuted"
+        >
+          {resultsLabel}
+        </p>
+      </Reveal>
 
       {featuredVisible && featuredProject ? (
-        <FeaturedProjectCard project={featuredProject} className="mt-4" />
+        <Reveal delay={100} className="mt-4">
+          <FeaturedProjectCard project={featuredProject} />
+        </Reveal>
       ) : null}
 
       {gridProjects.length > 0 ? (
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {gridProjects.map((project) => (
-            <ProjectCard key={project.name} project={project} />
+          {gridProjects.map((project, index) => (
+            /*
+             * Stagger (Fase 6): delay crescente con cap a 270ms. Le card con
+             * chiave stabile non si ri-animano al cambio filtro (React riusa
+             * l'istanza, già revealed); le nuove entrano in fade — solo
+             * transform/opacity, niente layout animato.
+             */
+            <Reveal
+              key={project.name}
+              delay={Math.min(index * 45, 270)}
+              className="flex"
+            >
+              <ProjectCard project={project} />
+            </Reveal>
           ))}
         </div>
       ) : (
-        <EmptyState onReset={resetFilters} />
+        <Reveal delay={100}>
+          <EmptyState onReset={resetFilters} />
+        </Reveal>
       )}
     </div>
   );
