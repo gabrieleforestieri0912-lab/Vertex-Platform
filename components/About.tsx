@@ -67,7 +67,7 @@ export function About() {
       id="about"
       className="border-t border-vertex-border bg-vertex-bg"
     >
-      <div className="mx-auto w-full max-w-5xl scroll-mt-8 px-6 py-16 sm:py-20 xl:max-w-6xl 2xl:max-w-7xl">
+      <div className="mx-auto w-full max-w-5xl scroll-mt-24 px-6 py-16 sm:py-20 xl:max-w-6xl 2xl:max-w-7xl">
         <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
           Chi sono
         </p>

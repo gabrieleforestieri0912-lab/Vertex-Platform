@@ -5,7 +5,7 @@ export function ProjectGrid() {
   return (
     <section
       id="projects"
-      className="mx-auto w-full max-w-5xl scroll-mt-8 px-6 py-16 sm:py-20 xl:max-w-6xl 2xl:max-w-7xl"
+      className="mx-auto w-full max-w-5xl scroll-mt-24 px-6 py-16 sm:py-20 xl:max-w-6xl 2xl:max-w-7xl"
     >
       <div className="flex items-baseline justify-between gap-4">
         <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
