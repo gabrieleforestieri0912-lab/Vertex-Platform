@@ -17,7 +17,9 @@ import type { ProjectStatus } from "@/lib/types";
  *
  * Colori (tone): live → viola (accento brand), beta → ciano (in prova),
  * building → ambra (cantiere), paused → neutro metallico.
- * → TODO: confermare le coppie stato→colore.
+ * Coppie stato→colore confermate (revisione D5, 20/09/2026): live → viola
+ * (accento brand), beta → ciano (in prova), building → ambra (cantiere),
+ * paused → neutro metallico.
  */
 export const statusMeta: Record<
   ProjectStatus,

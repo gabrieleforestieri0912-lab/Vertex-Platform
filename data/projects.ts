@@ -15,10 +15,11 @@ import type {
  * - `url`: la homepage pubblica SOLO se risponde 200 adesso, altrimenti la repo
  *   GitHub. Verificato il 19/09/2026: i deploy di Taskly, StackUp e Mind-Project
  *   risultano morti (404) e quindi qui puntano alla repo.
- * - `status`: `live` = deploy pubblico verificato ora; `beta` = prodotto
+ * - `status`: `live` = deploy pubblico verificato; `beta` = prodotto
  *   descritto come completo nel README ma senza deploy pubblico verificato;
  *   `building` = nessuna descrizione di prodotto disponibile.
- *   ⚠️ Da rivedere a mano: lo stato reale lo conosci solo tu.
+ *   Stati confermati da Gabriele il 20/09/2026 (riverifica: deploy HTTP 200
+ *   e README delle repo — nessun cambio di valore).
  * - `category`: dedotta dalla piattaforma (Next.js -> SaaS, Electron/Flutter
  *   -> Desktop/Mobile, estensione Chrome -> Extension).
  *
