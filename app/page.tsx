@@ -2,6 +2,7 @@ import { About } from "@/components/About";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { PortfolioStatus } from "@/components/PortfolioStatus";
 import { ProjectGrid } from "@/components/ProjectGrid";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <ProjectGrid />
+        <PortfolioStatus />
         <About />
       </main>
       <Footer />
