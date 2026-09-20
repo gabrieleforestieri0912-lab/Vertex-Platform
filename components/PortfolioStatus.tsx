@@ -44,15 +44,13 @@ export function PortfolioStatus() {
     <Section id="stato" className="scroll-mt-24 border-t border-vertex-border">
       <Container>
         <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
-          {/* TODO(copy): eyebrow da confermare */}
           Avanzamento
         </p>
         <h2 className="mt-4 text-2xl font-semibold tracking-tight text-vertex-highlight sm:text-3xl">
-          {/* TODO(copy): titolo sezione da confermare */}
-          Stato del portfolio
+          Il portfolio, stato per stato
         </h2>
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-vertex-silverMuted">
-          {totalProjects} progetti divisi per stadio, dal cantiere al live.
+          {totalProjects} progetti, dal cantiere al live.
         </p>
 
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
