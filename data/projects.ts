@@ -1,88 +1,86 @@
 import type { Project, ProjectCategory, ProjectStatus } from "@/lib/types";
 
 /**
- * Progetti Vertex — piattaforma che raccoglie tutti i tuoi prodotti.
- * Ogni progetto ha un colore solido flat preso dal suo sito live (no gradienti).
- * - Curriculuxe #818CF8 → violet
- * - InFolders #A855F7 → violet
- * - VoiceFlow #5EEAD4 teal → cyan
- * - CaptionBoost #4C94FF → blue
- * - Resumari #9333EA → violet
- * - Semplycode #10B981 → emerald
- * - Maxthenics #DC2626 → red
- * - AgentCloud #038BFE → blue
- * - Taskly amber, StackUp slate, S.A.V.I.A magenta, OmniHabit emerald
- * - Reskill cyan, Macrox amber, Mind slate, Alpha slate
+ * Vertex — collezione completa. Ogni card ha logo reale (da /public/logos) quando disponibile,
+ * altrimenti tile con icona lucide. Descrizioni prese dai README reali dei progetti.
+ * Colori flat solidi (no gradienti) dal sito live.
  */
 export const projects: Project[] = [
   // --- live ---
   {
     name: "Curriculuxe",
     tagline:
-      "Crea, ottimizza e monitora il curriculum con l'AI: analisi ATS, personalizzazione per job description e Career Market.",
+      "Piattaforma AI per creare, ottimizzare e monitorare il curriculum: analisi ATS, personalizzazione per job description e Career Market, con Groq Llama 3.3 e Stripe.",
     status: "live",
     category: "Education",
     url: "https://curriculuxe.vercel.app",
+    logo: "/logos/curriculuxe.png",
     accent: "violet",
     icon: "GraduationCap",
   },
   {
     name: "InFolders",
     tagline:
-      "Estensione Chrome che organizza le conversazioni AI (ChatGPT, Gemini, Claude, Perplexity) in cartelle, bookmark e prompt.",
+      "Estensione Chrome che organizza le chat AI (ChatGPT, Gemini, Claude, Perplexity) in cartelle annidate, bookmark, prompt e profili — con sync cloud e backup.",
     status: "live",
     category: "Extension",
     url: "https://infolders.vercel.app",
+    logo: "/logos/infolders.png",
     accent: "violet",
     icon: "FolderOpen",
   },
   {
     name: "VoiceFlow",
     tagline:
-      "Dettatura vocale push-to-talk per Windows: tieni premuto Ctrl+Spazio, parla, rilascia e il testo compare dove stai scrivendo.",
+      "Dettatura vocale push-to-talk per Windows: tieni premuto Ctrl+Spazio, parla, rilascia e il testo compare dove stai scrivendo. App desktop + landing Supabase.",
     status: "live",
     category: "Desktop",
     url: "https://voiceflow-flax.vercel.app",
+    logo: "/logos/voiceflow.png",
     accent: "cyan",
     icon: "Mic",
   },
   {
     name: "CaptionBoost",
     tagline:
-      "Sottotitoli AI per YouTube in tempo reale: traduzione istantanea, aspetto personalizzabile e privacy-first.",
+      "Sottotitoli AI per YouTube in tempo reale: traduzione istantanea, aspetto personalizzabile e privacy-first. Estensione Chrome + Gemini/OpenAI/Groq/Anthropic.",
     status: "live",
     category: "SaaS",
     url: "https://captionboost.vercel.app",
+    logo: "/logos/captionboost.png",
     accent: "blue",
     icon: "Captions",
   },
   {
     name: "Resumari",
     tagline:
-      "Trasforma i video YouTube in trascrizioni istantanee, riassunti e chat, con estensione Chrome, server MCP e API pubblica.",
+      "Trasforma i video YouTube in trascrizioni, riassunti e chat AI — con estensione Chrome, server MCP, API pubblica e 11 tool gratuiti per creator.",
     status: "live",
     category: "SaaS",
     url: "https://resumari.vercel.app",
+    logo: "/logos/resumari.png",
     accent: "violet",
     icon: "ScrollText",
   },
   {
     name: "Semplycode",
     tagline:
-      "Analizza e spiega il codice con l'AI: scompone la logica, trova i bug e insegna pattern migliori, con estensione Chrome.",
+      "Analizza e spiega il codice con l'AI: scompone la logica, trova bug, insegna pattern migliori. Webapp Next.js + estensione sidepanel su qualsiasi pagina.",
     status: "live",
     category: "SaaS",
     url: "https://semplycode.vercel.app",
+    logo: "/logos/semplycode.png",
     accent: "emerald",
     icon: "Braces",
   },
   {
     name: "Maxthenics",
     tagline:
-      "La piattaforma definitiva per il Calisthenics: programmi scientifici personalizzati, tracking avanzato e coaching 1:1.",
+      "Piattaforma Calisthenics: programmi scientifici personalizzati, tracking avanzato e coaching 1:1 per sbloccare skill come Front Lever e Planche.",
     status: "live",
     category: "SaaS",
     url: "https://maxthenics.vercel.app",
+    logo: "/logos/maxthenics.png",
     accent: "red",
     icon: "Dumbbell",
   },
@@ -91,10 +89,11 @@ export const projects: Project[] = [
   {
     name: "AgentCloud",
     tagline:
-      "Piattaforma di agenti AI per le aziende: marketplace di agenti pronti al lancio, chat in streaming e billing Stripe.",
+      "Piattaforma di agenti AI per aziende: marketplace di agenti pronti al lancio, chat in streaming e billing Stripe con overage. Flagship in waitlist.",
     status: "beta",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/AgentCloud",
+    logo: "/logos/agentcloud.png",
     accent: "blue",
     icon: "Bot",
     featured: true,
@@ -102,27 +101,29 @@ export const projects: Project[] = [
   {
     name: "Taskly",
     tagline:
-      "Hub di produttività personale: attività, obiettivi, note, documenti con backlink, workspace e assistenza AI, con app desktop.",
+      "Hub di produttività: task, obiettivi, note, documenti con backlink, workspace e AI. Web + app desktop Electron, Supabase e Stripe.",
     status: "beta",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/Taskly",
+    logo: "/logos/taskly.png",
     accent: "amber",
     icon: "ListChecks",
   },
   {
     name: "StackUp",
     tagline:
-      "Piattaforma per imparare a programmare: corsi a pagamento, guide, percorsi di carriera, dashboard utente e certificati.",
+      "Impara a programmare con corsi a pagamento, guide, percorsi di carriera, dashboard utente e certificati. Next.js 16 + Supabase + Stripe.",
     status: "beta",
     category: "Education",
     url: "https://github.com/gabrieleforestieri0912-lab/Stackup-Room",
+    logo: "/logos/stackup.png",
     accent: "slate",
     icon: "Rocket",
   },
   {
     name: "S.A.V.I.A",
     tagline:
-      "Assistente AI desktop con interfaccia HUD in stile JARVIS: modelli multi-provider e controllo vocale.",
+      "Assistente AI desktop con HUD in stile JARVIS: Electron, multi-provider (OpenRouter/OpenCode/Local) e controllo vocale. v4.0.0.",
     status: "beta",
     category: "Desktop",
     url: "https://github.com/gabrieleforestieri0912-lab/S.A.V.I.A",
@@ -132,20 +133,22 @@ export const projects: Project[] = [
   {
     name: "OmniHabit",
     tagline:
-      "Piattaforma per costruire abitudini che durano, sui principi di Atomic Habits, con OmniMind, il coach AI.",
+      "Costruisci abitudini che durano sui principi di Atomic Habits, con OmniMind — il coach AI che ti segue ogni giorno. App Flutter.",
     status: "beta",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/OmniHabit",
+    logo: "/logos/omnihabit.png",
     accent: "emerald",
     icon: "Repeat",
   },
   {
     name: "Reskill",
     tagline:
-      "Genera Skill AI da web, YouTube, PDF e social, da usare come contesto con Cursor, Claude e ChatGPT.",
+      "Genera Skill AI (file Markdown) da web, YouTube, PDF e social — pronte per Cursor, Claude, ChatGPT e Copilot. Tailwind + Supabase + Stripe.",
     status: "beta",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/Reskill",
+    logo: "/logos/reskill.png",
     accent: "cyan",
     icon: "Wand2",
   },
@@ -153,25 +156,29 @@ export const projects: Project[] = [
   // --- building ---
   {
     name: "Mind-Project",
-    tagline: "Descrizione da definire",
+    tagline:
+      "Coaching mindset + programmi Calisthenics: trasforma la tua vita attraverso mentalità e azioni. Mind Project — Stripe, Supabase e coaching online.",
     status: "building",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/Mind-Project",
+    logo: "/logos/mind-project.png",
     accent: "slate",
     icon: "Brain",
   },
   {
     name: "Macrox",
-    tagline: "Tracker calorico AI per tenere sotto controllo le calorie.",
+    tagline:
+      "Tracker calorico AI in Flutter: descrivi cosa hai mangiato, l'AI calcola calorie e macro, diario, peso, streak e onboarding. Supabase + Gemini.",
     status: "building",
     category: "Mobile",
     url: "https://github.com/gabrieleforestieri0912-lab/Macrox",
+    logo: "/logos/macrox.png",
     accent: "amber",
     icon: "Gauge",
   },
   {
     name: "AlphaPrjct",
-    tagline: "Descrizione da definire",
+    tagline: "Progetto statico con pagine HTML (Homepage, Courses, Services) — in definizione.",
     status: "building",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/AlphaPrjct",
