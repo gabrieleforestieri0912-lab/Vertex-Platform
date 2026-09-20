@@ -160,7 +160,8 @@ body {
 }
 
 /* Blob per l'aurora della hero (Fase 3): sfocatura statica, il movimento
-   sara' solo transform/opacity via Framer Motion. */
+   è solo transform/opacity via CSS keyframes (le entrate/interazioni usano
+   framer-motion; l'aurora resta decoro a costo zero di JS). */
 .blob {
   position: absolute;
   border-radius: 9999px;
@@ -247,27 +248,16 @@ body {
   animation-delay: -16s;
 }
 
-/* Ingresso hero: fade + risalita minima, solo transform/opacity. */
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.rise-in {
-  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
+/*
+ * Ingresso hero e reveal on scroll ora passano da framer-motion
+ * (components/ui/Reveal.tsx, lib/motion.ts): solo transform/opacity, con
+ * riduzione a semplice fade per prefers-reduced-motion via MotionConfig.
+ */
 
 @media (prefers-reduced-motion: reduce) {
   .animate-aurora-a,
   .animate-aurora-b,
-  .animate-aurora-c,
-  .rise-in {
+  .animate-aurora-c {
     animation: none;
   }
 }

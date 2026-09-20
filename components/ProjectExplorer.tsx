@@ -1,12 +1,14 @@
 "use client";
 
 import { useCallback, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Search, SearchX, X } from "lucide-react";
 import { FeaturedProjectCard } from "@/components/FeaturedProjectCard";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { Reveal } from "@/components/ui/Reveal";
+import { EASE } from "@/lib/motion";
 import type { Project, ProjectCategory } from "@/lib/types";
 
 type CategoryFilter = ProjectCategory | "all";
@@ -159,34 +161,82 @@ export function ProjectExplorer({ projects }: { projects: Project[] }) {
         </p>
       </Reveal>
 
-      {featuredVisible && featuredProject ? (
-        <Reveal delay={100} className="mt-4">
-          <FeaturedProjectCard project={featuredProject} />
-        </Reveal>
-      ) : null}
+      {/*
+       * Featured: entra in fade quando combacia coi filtri, esce in fade-
+       * risalita quando smette di combaciare. `layout` per il riallineamento.
+       */}
+      <AnimatePresence>
+        {featuredVisible && featuredProject ? (
+          <motion.div
+            key="featured"
+            layout
+            initial={{ opacity: 0, y: 12 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.4, ease: EASE },
+            }}
+            exit={{
+              opacity: 0,
+              y: -8,
+              transition: { duration: 0.2, ease: EASE },
+            }}
+            className="mt-4"
+          >
+            <FeaturedProjectCard project={featuredProject} />
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
 
       {gridProjects.length > 0 ? (
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {gridProjects.map((project, index) => (
-            /*
-             * Stagger (Fase 6): delay crescente con cap a 270ms. Le card con
-             * chiave stabile non si ri-animano al cambio filtro (React riusa
-             * l'istanza, già revealed); le nuove entrano in fade — solo
-             * transform/opacity, niente layout animato.
-             */
-            <Reveal
-              key={project.name}
-              delay={Math.min(index * 45, 270)}
-              className="flex"
-            >
-              <ProjectCard project={project} />
-            </Reveal>
-          ))}
+          {/*
+           * Transizioni dei filtri (Fase 6, framer-motion): AnimatePresence
+           * in modalità popLayout + `layout` sulle card. Le card uscenti
+           * escono in fade/scala mentre le rimanenti scivolano (FLIP = solo
+           * transform) nelle nuove posizioni della griglia; le nuove
+           * entrano in fade-risalita con delay crescente (cap 270ms). Le
+           * chiavi stabili (nome progetto) evitano ri-animazioni inutili.
+           */}
+          <AnimatePresence mode="popLayout">
+            {gridProjects.map((project, index) => (
+              <motion.div
+                key={project.name}
+                layout
+                initial={{ opacity: 0, y: 14, scale: 0.97 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  transition: {
+                    duration: 0.4,
+                    ease: EASE,
+                    delay: Math.min(index * 0.045, 0.27),
+                  },
+                }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.96,
+                  transition: { duration: 0.18, ease: EASE },
+                }}
+                className="flex"
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       ) : (
-        <Reveal delay={100}>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.35, ease: EASE },
+          }}
+        >
           <EmptyState onReset={resetFilters} />
-        </Reveal>
+        </motion.div>
       )}
     </div>
   );

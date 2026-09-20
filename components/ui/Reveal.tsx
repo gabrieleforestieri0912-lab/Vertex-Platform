@@ -1,84 +1,36 @@
 "use client";
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  type HTMLAttributes,
-} from "react";
-import { cn } from "@/lib/cn";
+import { motion } from "framer-motion";
+import type { ReactNode } from "react";
+import { EASE, fadeUp } from "@/lib/motion";
 
-export interface RevealProps extends HTMLAttributes<HTMLDivElement> {
+export interface RevealProps {
   /**
-   * Ritardo della transizione in ms: usato per lo stagger (griglie, colonne).
-   * Applicato come transition-delay, quindi NON blocca il contenuto: senza
-   * JS (o col contenuto già a schermo) non c'è nessun nascondimento.
+   * Ritardo dell'entrata in MILLISECONDI (convertito in secondi qui dentro,
+   * che è l'unità di framer): usato per lo stagger, es. colonne stato.
    */
   delay?: number;
+  className?: string;
+  children?: ReactNode;
 }
 
 /**
- * Reveal on scroll (Fase 6): fade + risalita minima (16px), SOLO
- * transform/opacity. Il contenuto è SSR e visibile di default: lo stato
- * nascosto viene applicato solo DOPO il mount, e solo se l'elemento è sotto
- * il fold — così senza JS non si nasconde nulla e chi ha
- * `prefers-reduced-motion` non vede nessuna animazione (nessun armed).
- *
- * L'observer si disconnette dopo il primo reveal: zero lavoro a regime.
- * Nei client component si può riusare direttamente (ProjectExplorer);
- * nelle sezioni server avvolge i blocchi già renderizzati dal server.
+ * Reveal on scroll (framer-motion): fade + risalita di 16px, SOLO
+ * transform/opacity. `once: true`: l'animazione gira una sola volta, poi
+ * l'observer interno di framer viene rilasciato. La riduzione per
+ * `prefers-reduced-motion` arriva dal MotionConfig globale (solo fade).
  */
-export function Reveal({
-  delay = 0,
-  className,
-  style,
-  children,
-  ...props
-}: RevealProps) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [armed, setArmed] = useState(false);
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    // Niente observer API o reduced-motion: il contenuto resta visibile, punto.
-    if (!el || !("IntersectionObserver" in window)) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    // Già nel viewport al mount (es. sezione corta su desktop): niente animazione.
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) return;
-
-    setArmed(true);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setRevealed(true);
-          observer.disconnect();
-        }
-      },
-      // Reveal poco prima che il blocco entri del tutto: si vede il movimento.
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
+export function Reveal({ delay = 0, className, children }: RevealProps) {
   return (
-    <div
-      ref={ref}
-      style={{ ...style, transitionDelay: `${delay}ms` }}
-      className={cn(
-        "transition-[opacity,transform] duration-700 ease-out motion-reduce:transition-none",
-        armed && !revealed
-          ? "translate-y-4 opacity-0"
-          : "translate-y-0 opacity-100",
-        className
-      )}
-      {...props}
+    <motion.div
+      className={className}
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "0px 0px -12% 0px" }}
+      transition={{ duration: 0.7, ease: EASE, delay: delay / 1000 }}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }

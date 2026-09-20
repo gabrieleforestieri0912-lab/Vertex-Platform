@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { AuroraBackground } from "@/components/AuroraBackground";
 import { countByStatus, totalProjects } from "@/data/projects";
+import { EASE, fadeScale, fadeUp, stagger } from "@/lib/motion";
 
 /**
  * Contatori hero (Fase 3): tutti derivati dai dati di data/projects.ts,
@@ -15,19 +19,32 @@ const counters = [
   { label: "In cantiere", value: countByStatus.building },
 ];
 
+/**
+ * Hero (Fase 3, motion di Fase 6 rivisto con framer-motion): entrance
+ * coreografata via variants + staggerChildren (l'ordine è quello del DOM).
+ * Il float lento del logo è un loop di transform puro, disattivato dal
+ * MotionConfig per chi preferisce motion ridotto. L'aurora dietro resta in
+ * CSS keyframes: decoro infinito, zero JS nel loop.
+ */
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-vertex-border">
       <AuroraBackground />
 
-      <div className="relative mx-auto grid w-full max-w-5xl items-center gap-12 px-6 py-20 sm:py-28 lg:grid-cols-[1.4fr_1fr] xl:max-w-6xl xl:gap-16 2xl:max-w-7xl">
+      <motion.div
+        className="relative mx-auto grid w-full max-w-5xl items-center gap-12 px-6 py-20 sm:py-28 lg:grid-cols-[1.4fr_1fr] xl:max-w-6xl xl:gap-16 2xl:max-w-7xl"
+        variants={stagger(0.09, 0.05)}
+        initial="hidden"
+        animate="visible"
+      >
         <div>
-          <p
-            className="rise-in text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft"
-            style={{ animationDelay: "0ms" }}
+          <motion.p
+            variants={fadeUp}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft"
           >
             Progetti indipendenti
-          </p>
+          </motion.p>
 
           {/*
             min(3rem, 18vw): a zoom normale resta 48px, ma il termine in vw
@@ -35,29 +52,32 @@ export function Hero() {
             ingrandito al 200% (i rem raddoppiano, i vw no).
             Wordmark metallico: riflesso del logo tornado (Fase 1).
           */}
-          <h1
-            className="rise-in text-metal mt-5 text-[min(3rem,18vw)] font-semibold tracking-tight sm:text-6xl lg:text-7xl"
-            style={{ animationDelay: "70ms" }}
+          <motion.h1
+            variants={fadeScale}
+            transition={{ duration: 0.8, ease: EASE }}
+            className="text-metal mt-5 text-[min(3rem,18vw)] font-semibold tracking-tight sm:text-6xl lg:text-7xl"
           >
             Vertex
-          </h1>
+          </motion.h1>
 
           {/*
             TODO(copy): claim provvisorio, da rivedere.
             L'elenco dei progetti arriva da data/projects.ts.
           */}
-          <p
-            className="rise-in mt-6 max-w-xl text-balance text-lg leading-relaxed text-vertex-silver xl:max-w-2xl"
-            style={{ animationDelay: "140ms" }}
+          <motion.p
+            variants={fadeUp}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="mt-6 max-w-xl text-balance text-lg leading-relaxed text-vertex-silver xl:max-w-2xl"
           >
             Un unico posto per i progetti che sto costruendo: cosa &egrave;
             live, cosa &egrave; in beta e cosa &egrave; ancora in cantiere.
-          </p>
+          </motion.p>
 
           {/* Contatori derivati dai dati (mai numeri a mano). */}
-          <dl
-            className="rise-in mt-9 flex flex-wrap gap-x-8 gap-y-4"
-            style={{ animationDelay: "210ms" }}
+          <motion.dl
+            variants={fadeUp}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="mt-9 flex flex-wrap gap-x-8 gap-y-4"
           >
             {counters.map((counter) => (
               <div key={counter.label}>
@@ -69,11 +89,12 @@ export function Hero() {
                 </dd>
               </div>
             ))}
-          </dl>
+          </motion.dl>
 
-          <div
-            className="rise-in mt-9 flex flex-wrap items-center gap-3"
-            style={{ animationDelay: "280ms" }}
+          <motion.div
+            variants={fadeUp}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="mt-9 flex flex-wrap items-center gap-3"
           >
             {/*
               hover scurisce invece di schiarire: bianco su accent-deep/85
@@ -91,33 +112,40 @@ export function Hero() {
             >
               Chi sono
             </a>
-          </div>
+          </motion.div>
         </div>
 
         {/* Logo Vertex: asset reale dal repo, prima non usato da nessuna parte. */}
-        <div
-          className="rise-in relative mx-auto w-full max-w-xs lg:max-w-none"
-          style={{ animationDelay: "180ms" }}
+        <motion.div
+          variants={fadeScale}
+          transition={{ duration: 0.9, ease: EASE }}
+          className="relative mx-auto w-full max-w-xs lg:max-w-none"
         >
           {/* Glow brand dietro il logo: già sfocato staticamente (.glow-grad). */}
-          <div aria-hidden className="glow-grad" />
-          <Image
-            src="/vertex.png"
-            alt="Logo Vertex"
-            width={1254}
-            height={1254}
-            priority
-            sizes="(min-width: 1024px) 320px, 256px"
-            /*
-              mix-blend-screen: il fondo nero del PNG sparisce sulla base scura.
-              brightness-150: il logo ha il 90% dei pixel sotto 33/255, senza boost
-              su #0A0A0A la parte visibile resta ~11% (misurato: sale al 17%).
-              Niente contrast-*: il pivot sul grigio 50% schiaccia i toni scuri.
-            */
-            className="relative mx-auto w-full max-w-[16rem] mix-blend-screen brightness-150 lg:max-w-[19rem] xl:max-w-[21rem]"
-          />
-        </div>
-      </div>
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            className="relative"
+          >
+            <div aria-hidden className="glow-grad" />
+            <Image
+              src="/vertex.png"
+              alt="Logo Vertex"
+              width={1254}
+              height={1254}
+              priority
+              sizes="(min-width: 1024px) 320px, 256px"
+              /*
+                mix-blend-screen: il fondo nero del PNG sparisce sulla base scura.
+                brightness-150: il logo ha il 90% dei pixel sotto 33/255, senza boost
+                su #0A0A0A la parte visibile resta ~11% (misurato: sale al 17%).
+                Niente contrast-*: il pivot sul grigio 50% schiaccia i toni scuri.
+              */
+              className="relative mx-auto w-full max-w-[16rem] mix-blend-screen brightness-150 lg:max-w-[19rem] xl:max-w-[21rem]"
+            />
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

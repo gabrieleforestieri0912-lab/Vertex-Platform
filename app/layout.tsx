@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MotionProvider } from "@/components/ui/MotionProvider";
 import "./globals.css";
 
 /**
@@ -40,7 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="it">
-      <body className="bg-vertex-bg font-sans antialiased">{children}</body>
+      <body className="bg-vertex-bg font-sans antialiased">
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }
