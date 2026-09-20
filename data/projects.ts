@@ -6,13 +6,15 @@ import type {
 
 /**
  * Elenco progetti della landing (una card per repo pubblica, esclusa
- * Vertex-Platform che è questo sito).
+ * Vertex-Platform che è questo sito). Taskly-Desktop non ha una voce
+ * autonoma: è l'app desktop di Taskly (repo non più pubblica dal
+ * 20/09/2026) ed è presentato dentro la voce Taskly.
  *
  * COME SONO STATI COMPILATI — tutto da fonti verificabili:
  * - `tagline`: prima riga descrittiva del README della repo, oppure meta
  *   description del sito live. Dove non esiste nessuna fonte, resta il
- *   segnaposto "Descrizione da definire" (3 progetti: Taskly-Desktop,
- *   Mind-Project, AlphaPrjct) — niente testo inventato.
+ *   segnaposto "Descrizione da definire" (2 progetti: Mind-Project,
+ *   AlphaPrjct) — niente testo inventato.
  * - `url`: la homepage pubblica SOLO se risponde 200 adesso, altrimenti la repo
  *   GitHub. Verificato il 19/09/2026: i deploy di Taskly, StackUp e Mind-Project
  *   risultano morti (404) e quindi qui puntano alla repo.
@@ -30,7 +32,7 @@ import type {
  * FASE 2 — campi nuovi (tutti PROPOSTI, nessuna fonte esistente):
  * - `accent`: famiglia cromatica della card (vedi lib/accents.ts). Distribuzione
  *   confermata (revisione D3: VoiceFlow in cyan; continuità
- *   tra prodotti correlati, es. Taskly / Taskly-Desktop).
+ *   tra prodotti correlati, es. l'app desktop dentro la voce Taskly).
  * - `icon`: nome dell'icona lucide-react del monogramma (union `ProjectIcon`
  *   in lib/types.ts, risolta a compile-time). → confermate.
  * - `featured`: solo AgentCloud, progetto flagship (decisione D6).
@@ -137,12 +139,15 @@ export const projects: Project[] = [
   {
     name: "Taskly",
     // Fonte: README della repo. Il deploy in metadata (taskly-pi-five) dà 404.
+    // Include l'app desktop (Electron, dai file della repo Taskly-Desktop,
+    // non più pubblica dal 20/09/2026): il progetto desktop non ha più una
+    // voce autonoma nell'hub, viene presentato dentro Taskly.
     tagline:
-      "Hub di produttività personale: attività, obiettivi, note, documenti con backlink, workspace e assistenza AI.",
+      "Hub di produttività personale: attività, obiettivi, note, documenti con backlink, workspace e assistenza AI, con app desktop.",
     status: "beta",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/Taskly",
-    accent: "amber", // continuità con Taskly-Desktop
+    accent: "amber",
     icon: "ListChecks",
   },
   {
@@ -191,19 +196,6 @@ export const projects: Project[] = [
   },
 
   // --- building (nessuna descrizione di prodotto disponibile) ---
-  {
-    name: "Taskly-Desktop",
-    // App desktop Electron di Taskly (dai file della repo). Il 20/09/2026 la
-    // repo non è più raggiungibile pubblicamente (404: eliminata o resa
-    // privata); descrizione di prodotto mai esistita pubblicamente.
-    // TODO: sostituire con la descrizione reale.
-    tagline: "Descrizione da definire",
-    status: "building",
-    category: "Desktop",
-    url: "https://github.com/gabrieleforestieri0912-lab/Taskly-Desktop",
-    accent: "amber", // continuità con Taskly
-    icon: "Monitor",
-  },
   {
     name: "Mind-Project",
     // Nessun README; il deploy in metadata (mind-project-one) dà 404.
