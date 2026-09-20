@@ -24,10 +24,10 @@ import type {
  *
  * FASE 2 — campi nuovi (tutti PROPOSTI, nessuna fonte esistente):
  * - `accent`: famiglia cromatica della card (vedi lib/accents.ts). Distribuzione
- *   proposta per dare identità visiva a ogni progetto mantenendo continuità
- *   tra prodotti correlati (Taskly / Taskly-Desktop). → TODO: confermare.
+ *   confermata (revisione D3: VoiceFlow in cyan; continuità
+ *   tra prodotti correlati, es. Taskly / Taskly-Desktop).
  * - `icon`: nome dell'icona lucide-react del monogramma (union `ProjectIcon`
- *   in lib/types.ts, risolta a compile-time). → TODO: confermare.
+ *   in lib/types.ts, risolta a compile-time). → confermate.
  * - `featured`: solo AgentCloud, progetto flagship (decisione D6).
  *
  * Ordine di visualizzazione: live -> beta -> building.
@@ -42,8 +42,8 @@ export const projects: Project[] = [
     status: "live",
     category: "Education",
     url: "https://curriculuxe.vercel.app",
-    accent: "cyan", // TODO: confermare
-    icon: "GraduationCap", // TODO: confermare
+    accent: "cyan",
+    icon: "GraduationCap",
   },
   {
     name: "InFolders",
@@ -53,8 +53,8 @@ export const projects: Project[] = [
     status: "live",
     category: "Extension",
     url: "https://infolders.vercel.app",
-    accent: "cyan", // TODO: confermare
-    icon: "FolderOpen", // TODO: confermare
+    accent: "cyan",
+    icon: "FolderOpen",
   },
   {
     name: "VoiceFlow",
@@ -64,8 +64,9 @@ export const projects: Project[] = [
     status: "live",
     category: "Desktop",
     url: "https://voiceflow-flax.vercel.app",
-    accent: "magenta", // TODO: confermare
-    icon: "Mic", // TODO: confermare
+    // D3: la palette del progetto è teal/indigo → famiglia cyan.
+    accent: "cyan",
+    icon: "Mic",
   },
   {
     name: "CaptionBoost",
@@ -75,8 +76,8 @@ export const projects: Project[] = [
     status: "live",
     category: "SaaS",
     url: "https://captionboost.vercel.app",
-    accent: "magenta", // TODO: confermare
-    icon: "Captions", // TODO: confermare
+    accent: "magenta",
+    icon: "Captions",
   },
 
   // --- beta (prodotto descritto, deploy pubblico non verificato) ---
@@ -88,9 +89,9 @@ export const projects: Project[] = [
     status: "beta",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/AgentCloud",
-    accent: "amber", // TODO: confermare
-    icon: "Bot", // TODO: confermare
-    featured: true, // D6: flagship — TODO: confermare
+    accent: "amber",
+    icon: "Bot",
+    featured: true, // D6: flagship — confermato
   },
   {
     name: "Taskly",
@@ -100,8 +101,8 @@ export const projects: Project[] = [
     status: "beta",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/Taskly",
-    accent: "amber", // TODO: confermare (continuità con Taskly-Desktop)
-    icon: "ListChecks", // TODO: confermare
+    accent: "amber", // continuità con Taskly-Desktop
+    icon: "ListChecks",
   },
   {
     name: "StackUp",
@@ -111,8 +112,8 @@ export const projects: Project[] = [
     status: "beta",
     category: "Education",
     url: "https://github.com/gabrieleforestieri0912-lab/Stackup-Room",
-    accent: "cyan", // TODO: confermare
-    icon: "Rocket", // TODO: confermare
+    accent: "cyan",
+    icon: "Rocket",
   },
   {
     name: "Resumari",
@@ -122,8 +123,8 @@ export const projects: Project[] = [
     status: "beta",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/Resumari",
-    accent: "violet", // TODO: confermare
-    icon: "ScrollText", // TODO: confermare
+    accent: "violet",
+    icon: "ScrollText",
   },
   {
     name: "S.A.V.I.A",
@@ -133,8 +134,8 @@ export const projects: Project[] = [
     status: "beta",
     category: "Desktop",
     url: "https://github.com/gabrieleforestieri0912-lab/S.A.V.I.A",
-    accent: "magenta", // TODO: confermare
-    icon: "Sparkles", // TODO: confermare
+    accent: "magenta",
+    icon: "Sparkles",
   },
   {
     name: "OmniHabit",
@@ -144,8 +145,8 @@ export const projects: Project[] = [
     status: "beta",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/OmniHabit",
-    accent: "magenta", // TODO: confermare
-    icon: "Repeat", // TODO: confermare
+    accent: "magenta",
+    icon: "Repeat",
   },
   {
     name: "Semplycode",
@@ -155,8 +156,8 @@ export const projects: Project[] = [
     status: "beta",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/Semplycode",
-    accent: "violet", // TODO: confermare
-    icon: "Braces", // TODO: confermare
+    accent: "violet",
+    icon: "Braces",
   },
   {
     name: "Reskill",
@@ -166,8 +167,8 @@ export const projects: Project[] = [
     status: "beta",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/Reskill",
-    accent: "cyan", // TODO: confermare
-    icon: "Wand2", // TODO: confermare
+    accent: "cyan",
+    icon: "Wand2",
   },
 
   // --- building (nessuna descrizione di prodotto disponibile) ---
@@ -179,8 +180,8 @@ export const projects: Project[] = [
     status: "building",
     category: "Desktop",
     url: "https://github.com/gabrieleforestieri0912-lab/Taskly-Desktop",
-    accent: "amber", // TODO: confermare (continuità con Taskly)
-    icon: "Monitor", // TODO: confermare
+    accent: "amber", // continuità con Taskly
+    icon: "Monitor",
   },
   {
     name: "Mind-Project",
@@ -190,8 +191,8 @@ export const projects: Project[] = [
     status: "building",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/Mind-Project",
-    accent: "violet", // TODO: confermare
-    icon: "Brain", // TODO: confermare
+    accent: "violet",
+    icon: "Brain",
   },
   {
     name: "Maxthenics",
@@ -201,8 +202,8 @@ export const projects: Project[] = [
     status: "building",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/Maxthenics",
-    accent: "amber", // TODO: confermare
-    icon: "Dumbbell", // TODO: confermare
+    accent: "amber",
+    icon: "Dumbbell",
   },
   {
     name: "Macrox",
@@ -212,8 +213,8 @@ export const projects: Project[] = [
     status: "building",
     category: "Mobile",
     url: "https://github.com/gabrieleforestieri0912-lab/Macrox",
-    accent: "amber", // TODO: confermare
-    icon: "Gauge", // TODO: confermare
+    accent: "amber",
+    icon: "Gauge",
   },
   {
     name: "AlphaPrjct",
@@ -223,8 +224,8 @@ export const projects: Project[] = [
     status: "building",
     category: "SaaS",
     url: "https://github.com/gabrieleforestieri0912-lab/AlphaPrjct",
-    accent: "violet", // TODO: confermare
-    icon: "FileText", // TODO: confermare
+    accent: "violet",
+    icon: "FileText",
   },
 ];
 
