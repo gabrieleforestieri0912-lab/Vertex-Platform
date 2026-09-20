@@ -1,9 +1,15 @@
+import { Reveal } from "@/components/ui/Reveal";
+import { countByStatus, totalProjects } from "@/data/projects";
+
 /**
  * Sezione "chi sono" a 360°.
  *
  * Stack e facts sono PRE-COMPILATI con dati verificabili presi dai repo pubblici
  * (niente inventato): vedi le note di provenienza accanto a ogni blocco.
- * intro e focus restano tuoi: finche' sono vuoti mostrano un box tratteggiato.
+ * intro e focus sono finalizzati sui dati verificabili di data/projects.ts
+ * (stati, deploy, waitlist). Base, ruolo e disponibilità sono dati personali
+ * non deducibili da nessuna fonte: non inventati, da aggiungere a mano se e
+ * quando Gabriele li fornisce.
  */
 type Fact = { label: string; value: string };
 
@@ -13,19 +19,21 @@ const about: {
   stack: string[];
   facts: Fact[];
 } = {
-  /**
-   * BOZZA da correggere (scritta sui fatti verificabili: progetti indie
-   * pubblicati da solo, ciclo completo idea -> codice -> deploy).
-   */
+  // Finalizzata sui fatti verificabili: prodotti indie pubblicati da solo,
+  // ciclo completo idea -> codice -> deploy, tipologie presenti nell'hub
+  // (web app, desktop, estensione Chrome). Il finale aggancia la copy della hero.
   intro:
     "Progetto e sviluppo prodotti digitali in autonomia, dall'idea al deploy: " +
-    "web app, tool desktop e servizi pubblicati sotto il nome Vertex.",
+    "web app, tool desktop ed estensioni pubblicati sotto il nome Vertex. " +
+    "Qui trovi cosa è live, cosa è in beta e cosa è ancora in cantiere.",
 
-  // BOZZA da correggere: cosa stai costruendo adesso.
+  // Finalizzato sui dati di data/projects.ts: flagship in fase waitlist
+  // (README), i quattro prodotti con deploy live verificato, i deploy morti
+  // (404 verificati il 19/09/2026: puntano alla repo).
   focus: [
-    "Consolidare i prodotti gi\u00e0 online (Curriculuxe, Taskly, StackUp) prima di aggiungerne di nuovi.",
-    "Web app in Next.js con Supabase e Stripe: autenticazione, pagamenti, dashboard.",
-    "Sperimentare con LLM e agenti (AgentCloud, Voiceflow) per automazioni concrete.",
+    "Portare AgentCloud, il progetto flagship, dalla waitlist al lancio pubblico.",
+    "Consolidare i quattro prodotti live: Curriculuxe, InFolders, VoiceFlow e CaptionBoost.",
+    "Riportare online i deploy morti di Taskly, StackUp e Mind-Project: oggi puntano alla repo.",
   ],
 
   /**
@@ -51,13 +59,20 @@ const about: {
   ],
 
   /**
-   * Fonti: GitHub API (`public_repos`, `created_at`) e date di push delle repo.
-   * Da completare a mano: base, ruolo, anni di esperienza, disponibilita'.
+   * Fonti:
+   * - "Progetti": derivato dai dati dell'hub (totalProjects, countByStatus) —
+   *   mai numeri scritti a mano;
+   * - gli altri due: GitHub API (`created_at`) e date di push delle repo.
+   * Base, ruolo, anni di esperienza e disponibilità sono dati personali non
+   * deducibili: omessi piuttosto che inventati.
    */
   facts: [
-    { label: "Progetti", value: "18 repository pubbliche" },
+    {
+      label: "Progetti",
+      value: `${totalProjects} nell'hub, ${countByStatus.live} live`,
+    },
     { label: "Su GitHub dal", value: "settembre 2025" },
-    { label: "Ultima attivit\u00e0", value: "settembre 2026" },
+    { label: "Ultima attività", value: "settembre 2026" },
   ],
 };
 
@@ -67,15 +82,17 @@ export function About() {
       id="about"
       className="border-t border-vertex-border bg-vertex-bg"
     >
-      <div className="mx-auto w-full max-w-5xl scroll-mt-8 px-6 py-16 sm:py-20 xl:max-w-6xl 2xl:max-w-7xl">
-        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
-          Chi sono
-        </p>
-        <h2 className="mt-4 text-2xl font-semibold tracking-tight text-vertex-highlight sm:text-3xl">
-          A 360&deg;
-        </h2>
+      <div className="mx-auto w-full max-w-5xl scroll-mt-24 px-6 py-16 sm:py-20 xl:max-w-6xl 2xl:max-w-7xl">
+        <Reveal>
+          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
+            Chi sono
+          </p>
+          <h2 className="mt-4 text-2xl font-semibold tracking-tight text-vertex-highlight sm:text-3xl">
+            A 360&deg;
+          </h2>
+        </Reveal>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
+        <Reveal delay={140} className="mt-8 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
           <div className="space-y-6">
             <Block title="In due righe">
               {about.intro ? (
@@ -161,7 +178,7 @@ export function About() {
               )}
             </Block>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

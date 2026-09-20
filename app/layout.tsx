@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
+import { MotionProvider } from "@/components/ui/MotionProvider";
 import "./globals.css";
 
 /**
- * Dominio ancora da confermare (vedi "Decisioni aperte"): su Vercel usa
- * automaticamente l'URL del deployment, in locale localhost. Quando il custom
- * domain e' attivo basta definire NEXT_PUBLIC_SITE_URL.
+ * URL di produzione confermato. In locale e nei preview deployment resta
+ * valido l'override con NEXT_PUBLIC_SITE_URL; quando attiveremo un custom
+ * domain basterà aggiornare il fallback qui sotto.
  */
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000");
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://vertex-startup.vercel.app";
 
 const title = "Vertex — I progetti indipendenti di Gabriele";
 const description =
@@ -43,7 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="it">
-      <body className="bg-vertex-bg font-sans antialiased">{children}</body>
+      <body className="bg-vertex-bg font-sans antialiased">
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }

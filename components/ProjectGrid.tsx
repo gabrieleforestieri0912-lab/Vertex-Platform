@@ -1,26 +1,32 @@
-import { ProjectCard } from "@/components/ProjectCard";
+import { ProjectExplorer } from "@/components/ProjectExplorer";
+import { Container } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
+import { Section } from "@/components/ui/Section";
 import { projects } from "@/data/projects";
 
+/**
+ * Sezione progetti (Fase 4). Componente SERVER: importa i dati e li passa
+ * come prop al client, che gestisce solo filtri e ricerca. Nessun numero
+ * scritto a mano: i conteggi sono derivati dall'array.
+ */
 export function ProjectGrid() {
   return (
-    <section
-      id="projects"
-      className="mx-auto w-full max-w-5xl scroll-mt-8 px-6 py-16 sm:py-20 xl:max-w-6xl 2xl:max-w-7xl"
-    >
-      <div className="flex items-baseline justify-between gap-4">
-        <h2 className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
-          Progetti
-        </h2>
-        <span className="text-xs text-vertex-silverMuted">
-          {projects.length} in totale
-        </span>
-      </div>
+    <Section id="projects" className="scroll-mt-24">
+      <Container>
+        <Reveal>
+          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-soft">
+            Progetti
+          </p>
+          <h2 className="mt-4 text-2xl font-semibold tracking-tight text-vertex-highlight sm:text-3xl">
+            {/* TODO(copy): titolo sezione da confermare */}
+            Dal live al cantiere, in un unico posto
+          </h2>
+        </Reveal>
 
-      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => (
-          <ProjectCard key={project.name} project={project} />
-        ))}
-      </div>
-    </section>
+        <div className="mt-8">
+          <ProjectExplorer projects={projects} />
+        </div>
+      </Container>
+    </Section>
   );
 }
