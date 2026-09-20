@@ -22,6 +22,10 @@ export interface AccentClasses {
   grad: string;
   deep: string;
   onDeep: string;
+  /** Fondo soft per tile/monogramma dell'icona sulla card. */
+  tile: string;
+  /** Colore del testo al passaggio del gruppo `.group` (es. freccia link). */
+  hoverText: string;
 }
 
 export const accentClasses: Record<AccentFamily, AccentClasses> = {
@@ -32,6 +36,8 @@ export const accentClasses: Record<AccentFamily, AccentClasses> = {
     grad: "bg-grad-violet",
     deep: "bg-accent-deep",
     onDeep: "text-white",
+    tile: "bg-accent/10",
+    hoverText: "group-hover:text-accent-soft",
   },
   cyan: {
     text: "text-cyan-soft",
@@ -40,6 +46,8 @@ export const accentClasses: Record<AccentFamily, AccentClasses> = {
     grad: "bg-grad-cyan",
     deep: "bg-cyan-deep",
     onDeep: "text-white",
+    tile: "bg-cyan/10",
+    hoverText: "group-hover:text-cyan-soft",
   },
   magenta: {
     text: "text-magenta-soft",
@@ -48,6 +56,8 @@ export const accentClasses: Record<AccentFamily, AccentClasses> = {
     grad: "bg-grad-magenta",
     deep: "bg-magenta-deep",
     onDeep: "text-white",
+    tile: "bg-magenta/10",
+    hoverText: "group-hover:text-magenta-soft",
   },
   amber: {
     text: "text-amber-soft",
@@ -57,6 +67,8 @@ export const accentClasses: Record<AccentFamily, AccentClasses> = {
     deep: "bg-amber-deep",
     // Bianco su #92400E: 7.1:1 (calcolo WCAG; il nero su #B45309 dava 3.9:1).
     onDeep: "text-white",
+    tile: "bg-amber/10",
+    hoverText: "group-hover:text-amber-soft",
   },
 };
 
