@@ -7,9 +7,11 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { getFeaturedProject, getProjectsByStatus } from "@/data/projects";
+import { useLanguage } from "@/lib/i18n";
 import { EASE } from "@/lib/motion";
 
 export function ProjectGrid() {
+  const { t } = useLanguage();
   const featured = getFeaturedProject();
   const live = getProjectsByStatus("live");
   const beta = getProjectsByStatus("beta").filter((p) => !p.featured);
@@ -19,13 +21,12 @@ export function ProjectGrid() {
     <Section id="projects" className="scroll-mt-24">
       <Container>
         <Reveal>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-vertex-silverMuted">Collezione</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-vertex-silverMuted">{t.collectionEyebrow}</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-vertex-highlight sm:text-4xl">
-            Tutti i progetti, in un unico posto
+            {t.collectionTitle}
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-vertex-silverMuted sm:text-base">
-            Non un marketplace — la piattaforma che raccoglie ciò che sto costruendo. Ogni card ha il suo colore,
-            preso dal sito live. Nessun gradiente, solo tinte piatte e pulite.
+            {t.collectionDesc}
           </p>
         </Reveal>
 
@@ -42,9 +43,9 @@ export function ProjectGrid() {
         ) : null}
 
         <div className="mt-12 space-y-14">
-          <ProjectSection title="Live" count={live.length} dotClass="bg-emerald-500" projects={live} startDelay={0} />
-          <ProjectSection title="Beta" count={beta.length} dotClass="bg-blue-500" projects={beta} startDelay={0.1} />
-          <ProjectSection title="In cantiere" count={building.length} dotClass="bg-amber-500" projects={building} startDelay={0.15} />
+          <ProjectSection title={t.sectionLive} count={live.length} dotClass="bg-emerald-500" projects={live} startDelay={0} />
+          <ProjectSection title={t.sectionBeta} count={beta.length} dotClass="bg-blue-500" projects={beta} startDelay={0.1} />
+          <ProjectSection title={t.sectionBuilding} count={building.length} dotClass="bg-amber-500" projects={building} startDelay={0.15} />
         </div>
       </Container>
     </Section>

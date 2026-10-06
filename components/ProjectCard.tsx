@@ -4,9 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { GitHubIcon } from "@/components/GitHubIcon";
 import { StatusBadge } from "@/components/StatusBadge";
 import { accentClasses, accentVars } from "@/lib/accents";
 import { cn } from "@/lib/cn";
+import { getProjectTagline, useLanguage } from "@/lib/i18n";
 import { projectIcons } from "@/lib/project-icon";
 import type { Project } from "@/lib/types";
 
@@ -17,10 +19,15 @@ import type { Project } from "@/lib/types";
  * - logo che zooma + ruota leggera
  * - bordo che si colora con --accent
  * - glow diffuso dietro la card
+ * - link principale (sito live o repo) + icona GitHub quando disponibile
  */
 export function ProjectCard({ project }: { project: Project }) {
   const accent = accentClasses[project.accent];
+  const { locale, t } = useLanguage();
   const [hover, setHover] = useState(false);
+  const isGithubUrl = project.url.includes("github.com");
+  const showGithubIcon =
+    project.githubUrl && project.githubUrl !== project.url;
 
   return (
     <motion.article
@@ -79,9 +86,24 @@ export function ProjectCard({ project }: { project: Project }) {
           >
             <ProjectMark project={project} hover={hover} />
           </motion.div>
-          <span className="rounded-full border border-vertex-border bg-vertex-bgRaised px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-vertex-silverMuted group-hover:border-white/15 group-hover:text-white transition-colors">
-            {project.category}
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="rounded-full border border-vertex-border bg-vertex-bgRaised px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-vertex-silverMuted group-hover:border-white/15 group-hover:text-white transition-colors">
+              {project.category}
+            </span>
+            {showGithubIcon ? (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`GitHub — ${project.name}`}
+                title={`GitHub — ${project.name}`}
+                onClick={(e) => e.stopPropagation()}
+                className="grid h-7 w-7 place-items-center rounded-full border border-vertex-border bg-vertex-bgRaised text-vertex-silverMuted transition-colors hover:border-white/25 hover:text-white hover:bg-white/10"
+              >
+                <GitHubIcon className="h-3.5 w-3.5" />
+              </a>
+            ) : null}
+          </div>
         </div>
 
         <h3 className="mt-4 text-[17px] font-bold leading-snug tracking-tight">
@@ -100,24 +122,44 @@ export function ProjectCard({ project }: { project: Project }) {
                 "group-hover:border-white/15 group-hover:bg-white group-hover:text-black transition-colors"
               )}
             >
-              <ArrowUpRight className="h-3.5 w-3.5" />
+              {isGithubUrl ? (
+                <GitHubIcon className="h-3.5 w-3.5" />
+              ) : (
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              )}
             </motion.span>
           </a>
         </h3>
 
         <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-vertex-silverMuted group-hover:text-vertex-silver transition-colors">
-          {project.tagline}
+          {getProjectTagline(project, locale)}
         </p>
 
         <div className="mt-5 flex items-center justify-between gap-3 border-t border-vertex-border/60 pt-4">
           <StatusBadge status={project.status} />
           <motion.span
             animate={{ x: hover ? 2 : 0 }}
-            className="flex items-center gap-1.5 text-xs font-semibold text-vertex-silverMuted group-hover:text-white transition-colors"
+            className="relative z-10 flex items-center gap-1.5 text-xs font-semibold text-vertex-silverMuted group-hover:text-white transition-colors"
           >
             <span className={cn("h-2 w-2 rounded-full animate-pulse-dot", accent.dot)} aria-hidden />
-            Apri
-            <ArrowUpRight className="h-3 w-3" />
+            {isGithubUrl ? t.cardOpenGithub : t.cardOpenSite}
+            {isGithubUrl ? (
+              <GitHubIcon className="h-3 w-3" />
+            ) : (
+              <ArrowUpRight className="h-3 w-3" />
+            )}
+            {showGithubIcon ? (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`GitHub — ${project.name}`}
+                onClick={(e) => e.stopPropagation()}
+                className="ml-1 grid h-6 w-6 place-items-center rounded-full border border-vertex-border text-vertex-silverMuted transition-colors hover:border-white/25 hover:text-white"
+              >
+                <GitHubIcon className="h-3 w-3" />
+              </a>
+            ) : null}
           </motion.span>
         </div>
       </div>
@@ -130,14 +172,14 @@ function ProjectMark({ project, hover }: { project: Project; hover: boolean }) {
     return (
       <motion.div
         animate={{ scale: hover ? 1.04 : 1 }}
-        className="h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-vertex-border bg-white p-1.5 shadow-sm group-hover:shadow-md group-hover:border-white/20 transition-all"
+        className="h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-transparent bg-transparent transition-all"
       >
         <Image
           src={project.logo}
           alt={`Logo ${project.name}`}
           width={44}
           height={44}
-          className="h-full w-full object-contain"
+          className="h-full w-full rounded-xl object-contain"
         />
       </motion.div>
     );
@@ -157,7 +199,7 @@ function ProjectMark({ project, hover }: { project: Project; hover: boolean }) {
   }
 
   return (
-    <span aria-hidden className="tile-flat text-sm font-bold">
+    <span className="tile-flat text-sm font-bold">
       {project.name.charAt(0).toUpperCase()}
     </span>
   );

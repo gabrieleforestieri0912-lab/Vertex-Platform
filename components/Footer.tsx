@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/lib/i18n";
 
 /**
  * Link essenziali GIÀ presenti nel sito — nessun link nuovo inventato:
@@ -8,17 +12,19 @@ import { Container } from "@/components/ui/Container";
  *   profilo GitHub è vuoto) e profilo GitHub owner del sito. Cambiali qui
  *   se vuoi usarne altri.
  */
-const sectionLinks = [
-  { label: "Progetti", href: "#projects" },
-  { label: "Chi sono", href: "#about" },
-];
-
-const contactLinks = [
-  { label: "Email", href: "mailto:gabrieleforestieri0912@gmail.com" },
-  { label: "GitHub", href: "https://github.com/gabrieleforestieri0912-lab" },
-];
-
 export function Footer() {
+  const { t } = useLanguage();
+
+  const sectionLinks = [
+    { label: t.navProjects, href: "#projects" },
+    { label: t.navAbout, href: "#about" },
+  ];
+
+  const contactLinks = [
+    { label: "Email", href: "mailto:gabrieleforestieri0912@gmail.com" },
+    { label: "GitHub", href: "https://github.com/gabrieleforestieri0912-lab" },
+  ];
+
   return (
     <footer className="border-t border-vertex-border">
       <div aria-hidden className="h-px w-full bg-vertex-border" />
@@ -36,14 +42,16 @@ export function Footer() {
               <span className="text-sm font-bold tracking-tight text-vertex-highlight">Vertex</span>
             </a>
             <p className="mt-2 text-xs text-vertex-silverMuted">
-              &copy; {new Date().getFullYear()} Gabriele. Tutti i diritti
-              riservati.
+              {t.footerRights(new Date().getFullYear())}
             </p>
+            <div className="mt-4">
+              <LanguageSwitcher />
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:gap-16">
-            <FooterGroup title="Sezioni" links={sectionLinks} />
-            <FooterGroup title="Contatti" links={contactLinks} />
+            <FooterGroup title={t.footerSections} links={sectionLinks} />
+            <FooterGroup title={t.footerContacts} links={contactLinks} />
           </div>
         </div>
       </Container>

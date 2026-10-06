@@ -37,9 +37,16 @@ export type ProjectIcon =
 export interface Project {
   name: string;
   tagline: string;
+  /** Descrizione in inglese (mostrata quando la lingua attiva è EN). */
+  taglineEn?: string;
   status: ProjectStatus;
   category: ProjectCategory;
   url: string;
+  /**
+   * Repository GitHub del progetto. Per i progetti live è diverso da `url`
+   * (sito live); per beta/building può coincidere con `url`.
+   */
+  githubUrl?: string;
   /**
    * Logo del progetto, path dentro /public (es. "/logos/agentcloud.png").
    * Se assente, la card mostra un monogramma col colore accento.

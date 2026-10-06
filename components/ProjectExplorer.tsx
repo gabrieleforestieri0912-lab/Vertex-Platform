@@ -8,6 +8,7 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { Reveal } from "@/components/ui/Reveal";
+import { useLanguage } from "@/lib/i18n";
 import { EASE } from "@/lib/motion";
 import type { Project, ProjectCategory } from "@/lib/types";
 
@@ -36,6 +37,7 @@ function compact(value: string) {
  * (mai duplicato); quando non combacia scompare, coerente con la ricerca.
  */
 export function ProjectExplorer({ projects }: { projects: Project[] }) {
+  const { t } = useLanguage();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<CategoryFilter>("all");
   const searchRef = useRef<HTMLInputElement>(null);
@@ -57,7 +59,7 @@ export function ProjectExplorer({ projects }: { projects: Project[] }) {
       if (!q && !qCompact) return true;
       const nameKey = compact(project.name);
       const haystack = normalize(
-        `${project.name} ${project.tagline} ${project.category}`
+        `${project.name} ${project.tagline} ${project.taglineEn ?? ""} ${project.category}`
       );
       return (qCompact.length > 0 && nameKey.includes(qCompact)) || haystack.includes(q);
     });
@@ -79,9 +81,7 @@ export function ProjectExplorer({ projects }: { projects: Project[] }) {
     searchRef.current?.focus();
   }, []);
 
-  const resultsLabel = `${results.length} ${
-    results.length === 1 ? "progetto" : "progetti"
-  }`;
+  const resultsLabel = t.resultsCount(results.length);
 
   return (
     <div>
@@ -90,7 +90,7 @@ export function ProjectExplorer({ projects }: { projects: Project[] }) {
         <div className="flex flex-col gap-4">
         <div className="relative max-w-md">
           <label htmlFor="project-search" className="sr-only">
-            Cerca tra i progetti
+            {t.searchLabel}
           </label>
           <Search
             aria-hidden
@@ -102,7 +102,7 @@ export function ProjectExplorer({ projects }: { projects: Project[] }) {
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Cerca per nome o descrizione…"
+            placeholder={t.searchPlaceholder}
             autoComplete="off"
             className="min-h-11 w-full rounded-md border border-vertex-border bg-vertex-surface/70 pl-10 pr-10 text-sm text-vertex-highlight placeholder:text-vertex-silverMuted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-offset-2 focus-visible:ring-offset-vertex-bg [&::-webkit-search-cancel-button]:appearance-none"
           />
@@ -113,7 +113,7 @@ export function ProjectExplorer({ projects }: { projects: Project[] }) {
                 setQuery("");
                 searchRef.current?.focus();
               }}
-              aria-label="Cancella la ricerca"
+              aria-label={t.searchClear}
               className="absolute right-1.5 top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-md text-vertex-silverMuted transition-colors duration-200 ease-out hover:text-vertex-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft motion-reduce:transition-none"
             >
               <X aria-hidden className="h-4 w-4" />
@@ -123,14 +123,14 @@ export function ProjectExplorer({ projects }: { projects: Project[] }) {
 
         <div
           role="group"
-          aria-label="Filtra per categoria"
+          aria-label={t.filterCategory}
           className="flex flex-wrap items-center gap-2"
         >
           <Chip
             selected={category === "all"}
             onClick={() => setCategory("all")}
           >
-            Tutti{" "}
+            {t.filterAll}{" "}
             <span className="tabular-nums text-vertex-silverMuted">
               {projects.length}
             </span>
@@ -244,6 +244,7 @@ export function ProjectExplorer({ projects }: { projects: Project[] }) {
 
 /** Stato vuoto (Fase 4): mai una griglia svuotata in silenzio. */
 function EmptyState({ onReset }: { onReset: () => void }) {
+  const { t } = useLanguage();
   return (
     <div className="mt-4 flex flex-col items-center gap-4 rounded-lg border border-dashed border-vertex-border bg-vertex-surface/40 px-6 py-16 text-center">
       <span
@@ -254,14 +255,14 @@ function EmptyState({ onReset }: { onReset: () => void }) {
       </span>
       <div>
         <p className="text-base font-medium text-vertex-highlight">
-          Nessun progetto trovato
+          {t.emptyTitle}
         </p>
         <p className="mt-1 text-sm text-vertex-silverMuted">
-          Prova a cambiare categoria o a modificare la ricerca.
+          {t.emptyDesc}
         </p>
       </div>
       <Button variant="secondary" size="sm" onClick={onReset}>
-        Azzera filtri
+        {t.emptyReset}
       </Button>
     </div>
   );

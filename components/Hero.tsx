@@ -3,16 +3,19 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { countByStatus, totalProjects } from "@/data/projects";
+import { useLanguage } from "@/lib/i18n";
 import { EASE } from "@/lib/motion";
 
-const counters = [
-  { label: "Progetti", value: totalProjects },
-  { label: "Live", value: countByStatus.live },
-  { label: "Beta", value: countByStatus.beta },
-  { label: "In cantiere", value: countByStatus.building },
-];
-
 export function Hero() {
+  const { t } = useLanguage();
+
+  const counters = [
+    { label: t.counterProjects, value: totalProjects },
+    { label: t.counterLive, value: countByStatus.live },
+    { label: t.counterBeta, value: countByStatus.beta },
+    { label: t.counterBuilding, value: countByStatus.building },
+  ];
+
   return (
     <section className="relative overflow-hidden border-b border-vertex-border bg-vertex-bg">
       {/* flat subtle grid decoration — no gradients */}
@@ -40,24 +43,23 @@ export function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-vertex-border bg-vertex-surface px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-vertex-silverMuted"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse-dot" aria-hidden />
-            Piattaforma Vertex
+            {t.heroBadge}
           </motion.p>
 
           <motion.h1
             variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } } }}
             className="mt-5 text-[44px] font-bold tracking-tight text-vertex-highlight sm:text-6xl lg:text-[64px] leading-[0.9]"
           >
-            Tutti i miei
+            {t.heroTitleA}
             <br />
-            <span className="text-vertex-silverMuted">progetti.</span>
+            <span className="text-vertex-silverMuted">{t.heroTitleB}</span>
           </motion.h1>
 
           <motion.p
             variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } }}
             className="mt-5 max-w-xl text-balance text-[17px] leading-relaxed text-vertex-silverMuted"
           >
-            Non un catalogo. Non un marketplace. La raccolta ordinata di ciò che sto costruendo —
-            dal live al cantiere, ogni card con il colore del suo sito.
+            {t.heroSubtitle}
           </motion.p>
 
           <motion.dl
@@ -80,13 +82,13 @@ export function Hero() {
               href="#projects"
               className="inline-flex min-h-11 items-center rounded-full bg-white px-6 text-sm font-semibold text-black transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
             >
-              Esplora i progetti
+              {t.heroExplore}
             </a>
             <a
               href="#about"
               className="inline-flex min-h-11 items-center rounded-full border border-vertex-border bg-vertex-surface px-6 text-sm font-medium text-vertex-silver transition-colors hover:border-vertex-border-strong hover:text-vertex-highlight"
             >
-              Chi sono
+              {t.heroAbout}
             </a>
           </motion.div>
         </motion.div>
@@ -108,7 +110,7 @@ export function Hero() {
               />
               <div className="mt-6 flex items-center justify-center gap-2 text-xs text-vertex-silverMuted">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse-dot" />
-                16 progetti · aggiornato ora
+                {t.heroUpdated(totalProjects)}
               </div>
             </div>
             {/* floating mini cards hint */}

@@ -3,17 +3,20 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-
-const navLinks = [
-  { label: "Progetti", href: "#projects" },
-  { label: "Stato", href: "#stato" },
-  { label: "Chi sono", href: "#about" },
-];
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/lib/i18n";
 
 export function Header() {
   const { scrollY } = useScroll();
+  const { t } = useLanguage();
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const navLinks = [
+    { label: t.navProjects, href: "#projects" },
+    { label: t.navStatus, href: "#stato" },
+    { label: t.navAbout, href: "#about" },
+  ];
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const prev = scrollY.getPrevious() ?? 0;
@@ -38,7 +41,7 @@ export function Header() {
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
     >
       <motion.nav
-        aria-label="Principale"
+        aria-label={t.navMain}
         className={`pointer-events-auto flex items-center gap-1 rounded-full border bg-black/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5),0_1px_0_rgba(255,255,255,0.08)_inset] transition-all duration-300 ${
           scrolled ? "px-2 py-1.5 border-white/15" : "px-3 py-2 border-white/10"
         }`}
@@ -73,12 +76,20 @@ export function Header() {
           ))}
         </ul>
 
+        <div className="ml-1 hidden sm:block">
+          <LanguageSwitcher />
+        </div>
+
         <a
           href="#projects"
           className="ml-1 hidden sm:inline-flex min-h-8 items-center rounded-full bg-white px-4 text-sm font-semibold text-black transition-transform hover:scale-[1.03] active:scale-[0.97]"
         >
-          Esplora
+          {t.navExplore}
         </a>
+
+        <div className="sm:hidden ml-1">
+          <LanguageSwitcher compact />
+        </div>
       </motion.nav>
     </motion.header>
   );
