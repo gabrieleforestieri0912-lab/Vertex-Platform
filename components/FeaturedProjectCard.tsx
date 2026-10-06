@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowUpRight, Star } from "lucide-react";
 import { GitHubIcon } from "@/components/GitHubIcon";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -74,9 +75,17 @@ export function FeaturedProjectCard({ project, className }: { project: Project; 
         </div>
 
         <div className="relative hidden lg:grid place-items-center">
-          <div className="relative grid h-48 w-48 place-items-center rounded-[20px] border border-vertex-border bg-vertex-bgRaised">
+          <div className="relative grid h-48 w-48 place-items-center overflow-hidden rounded-[20px] border border-vertex-border bg-vertex-bgRaised">
             <div className="absolute inset-0 rounded-[20px] opacity-[0.08]" style={{ background: "var(--accent)" }} />
-            {Icon ? (
+            {project.logo ? (
+              <Image
+                src={project.logo}
+                alt={`Logo ${project.name}`}
+                width={192}
+                height={192}
+                className="relative h-full w-full object-contain p-4"
+              />
+            ) : Icon ? (
               <Icon className="h-16 w-16" style={{ color: "var(--accent)" }} strokeWidth={1.5} />
             ) : (
               <span className="text-5xl font-bold" style={{ color: "var(--accent)" }}>
