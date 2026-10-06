@@ -162,7 +162,7 @@ export const projects: Project[] = [
       "Generate AI Skills (Markdown files) from web, YouTube, PDFs and social — ready for Cursor, Claude, ChatGPT and Copilot. Tailwind + Supabase + Stripe.",
     status: "beta",
     category: "SaaS",
-    url: "https://github.com/gabrieleforestieri0912-lab/Reskill",
+    url: "https://reskill-skill.vercel.app",
     githubUrl: "https://github.com/gabrieleforestieri0912-lab/Reskill",
     logo: "/logos/reskill.png",
     accent: "cyan",
