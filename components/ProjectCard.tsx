@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -13,46 +12,32 @@ import { projectIcons } from "@/lib/project-icon";
 import type { Project } from "@/lib/types";
 
 /**
- * Card spettacolare — flat ma con hover teatrale:
- * - lift + scale + shadow XXL
- * - barra che si allarga + shine sweep
- * - logo che zooma + ruota leggera
- * - bordo che si colora con --accent
- * - glow diffuso dietro la card
+ * Card flat con hover sobrio:
+ * - leggero sollevamento
+ * - bordo che si colora appena con --accent
  * - link principale (sito live o repo) + icona GitHub quando disponibile
  */
 export function ProjectCard({ project }: { project: Project }) {
   const accent = accentClasses[project.accent];
   const { locale, t } = useLanguage();
-  const [hover, setHover] = useState(false);
   const isGithubUrl = project.url.includes("github.com");
   const showGithubIcon =
     project.githubUrl && project.githubUrl !== project.url;
 
   return (
     <motion.article
-      onHoverStart={() => setHover(true)}
-      onHoverEnd={() => setHover(false)}
       style={accentVars(project.accent)}
       initial={false}
-      whileHover={{ y: -10, scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={cn(
         "group relative flex flex-col overflow-hidden rounded-[20px] bg-vertex-surface",
-        "border border-vertex-border",
+        "border border-vertex-border hover:border-vertex-border-strong hover:shadow-[0_8px_24px_rgba(0,0,0,0.35)]",
+        "transition-[border-color,box-shadow] duration-300",
         "focus-within:ring-2 focus-within:ring-white/10",
       )}
     >
-      {/* glow hover */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -inset-px rounded-[20px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(600px circle at 50% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%)`,
-        }}
-      />
-
-      {/* accent bar + shine */}
+      {/* accent bar */}
       <div className="relative h-[3px] w-full overflow-hidden bg-vertex-border">
         <motion.div
           className="absolute inset-y-0 left-0"
@@ -61,31 +46,13 @@ export function ProjectCard({ project }: { project: Project }) {
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         />
-        {/* shine sweep */}
-        <motion.div
-          aria-hidden
-          className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-          initial={{ x: "-100%" }}
-          animate={{ x: hover ? "300%" : "-100%" }}
-          transition={{ duration: 0.7, ease: "easeInOut" }}
-        />
       </div>
-
-      {/* border highlight on hover */}
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-[20px] border opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ borderColor: "color-mix(in srgb, var(--accent) 45%, transparent)" }}
-      />
 
       <div className="relative flex flex-1 flex-col p-5">
         <div className="flex items-start justify-between gap-3">
-          <motion.div
-            animate={{ rotate: hover ? 3 : 0, scale: hover ? 1.08 : 1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
-          >
-            <ProjectMark project={project} hover={hover} />
-          </motion.div>
+          <div>
+            <ProjectMark project={project} />
+          </div>
           <div className="flex items-center gap-2">
             <span className="rounded-full border border-vertex-border bg-vertex-bgRaised px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-vertex-silverMuted group-hover:border-white/15 group-hover:text-white transition-colors">
               {project.category}
@@ -114,9 +81,7 @@ export function ProjectCard({ project }: { project: Project }) {
             className="inline-flex items-center gap-1.5 text-vertex-highlight after:absolute after:inset-0 focus-visible:outline-none"
           >
             {project.name}
-            <motion.span
-              animate={{ x: hover ? 3 : 0, y: hover ? -3 : 0 }}
-              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            <span
               className={cn(
                 "grid h-6 w-6 place-items-center rounded-full border border-vertex-border bg-vertex-bgRaised",
                 "group-hover:border-white/15 group-hover:bg-white group-hover:text-black transition-colors"
@@ -127,7 +92,7 @@ export function ProjectCard({ project }: { project: Project }) {
               ) : (
                 <ArrowUpRight className="h-3.5 w-3.5" />
               )}
-            </motion.span>
+            </span>
           </a>
         </h3>
 
@@ -137,8 +102,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
         <div className="mt-5 flex items-center justify-between gap-3 border-t border-vertex-border/60 pt-4">
           <StatusBadge status={project.status} />
-          <motion.span
-            animate={{ x: hover ? 2 : 0 }}
+          <span
             className="relative z-10 flex items-center gap-1.5 text-xs font-semibold text-vertex-silverMuted group-hover:text-white transition-colors"
           >
             <span className={cn("h-2 w-2 rounded-full animate-pulse-dot", accent.dot)} aria-hidden />
@@ -160,20 +124,17 @@ export function ProjectCard({ project }: { project: Project }) {
                 <GitHubIcon className="h-3 w-3" />
               </a>
             ) : null}
-          </motion.span>
+          </span>
         </div>
       </div>
     </motion.article>
   );
 }
 
-function ProjectMark({ project, hover }: { project: Project; hover: boolean }) {
+function ProjectMark({ project }: { project: Project }) {
   if (project.logo) {
     return (
-      <motion.div
-        animate={{ scale: hover ? 1.04 : 1 }}
-        className="h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-transparent bg-transparent transition-all"
-      >
+      <div className="h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-transparent bg-transparent">
         <Image
           src={project.logo}
           alt={`Logo ${project.name}`}
@@ -181,7 +142,7 @@ function ProjectMark({ project, hover }: { project: Project; hover: boolean }) {
           height={44}
           className="h-full w-full rounded-xl object-contain"
         />
-      </motion.div>
+      </div>
     );
   }
 

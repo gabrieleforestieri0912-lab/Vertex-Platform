@@ -22,7 +22,7 @@ export function FeaturedProjectCard({ project, className }: { project: Project; 
       style={accentVars(project.accent)}
       className={cn(
         "group relative overflow-hidden rounded-[20px] bg-vertex-surface border border-vertex-border",
-        "hover:border-vertex-border-strong hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]",
+        "hover:border-vertex-border-strong hover:shadow-[0_8px_24px_rgba(0,0,0,0.35)]",
         "transition-all duration-300 ease-out",
         className
       )}
