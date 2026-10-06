@@ -119,7 +119,7 @@ export const projects: Project[] = [
       "AI agent platform for businesses: marketplace of ready-to-launch agents, streaming chat and Stripe billing with overages. Flagship in waitlist.",
     status: "beta",
     category: "SaaS",
-    url: "https://github.com/gabrieleforestieri0912-lab/AgentCloud",
+    url: "https://agentcloud.agency",
     githubUrl: "https://github.com/gabrieleforestieri0912-lab/AgentCloud",
     logo: "/logos/agentcloud.png",
     accent: "blue",

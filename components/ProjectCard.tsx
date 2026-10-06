@@ -98,7 +98,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 aria-label={`GitHub — ${project.name}`}
                 title={`GitHub — ${project.name}`}
                 onClick={(e) => e.stopPropagation()}
-                className="grid h-7 w-7 place-items-center rounded-full border border-vertex-border bg-vertex-bgRaised text-vertex-silverMuted transition-colors hover:border-white/25 hover:text-white hover:bg-white/10"
+                className="relative z-10 grid h-7 w-7 place-items-center rounded-full border border-vertex-border bg-vertex-bgRaised text-vertex-silverMuted transition-colors hover:border-white/25 hover:text-white hover:bg-white/10"
               >
                 <GitHubIcon className="h-3.5 w-3.5" />
               </a>
